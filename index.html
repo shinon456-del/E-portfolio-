@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Assessment & Feedback Hub — Awitin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Hamburger -->
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-glow"></div>
+  <div class="profile">
+    <div class="avatar-ring">
+      <div class="avatar-initials">S</div>
+    </div>
+    <h2>Awitin</h2>
+    <span class="badge">BTLEd ICT Student</span>
+    <div class="meta-pill">EDU 222 · 2026</div>
+  </div>
+  <nav>
+    <a onclick="showSection('dashboard',this)" class="nav-link active-link"><i>🏠</i><span>Dashboard</span></a>
+    <a onclick="showSection('portfolio',this)" class="nav-link"><i>📁</i><span>Portfolio</span></a>
+    <a onclick="showSection('students',this)" class="nav-link"><i>👥</i><span>Student Cards</span></a>
+    <a onclick="showSection('gradebook',this)" class="nav-link"><i>📊</i><span>Gradebook</span></a>
+    <a onclick="showSection('toolkit',this)" class="nav-link"><i>📨</i><span>Parent Toolkit</span></a>
+    <a onclick="showSection('reflection',this)" class="nav-link"><i>📝</i><span>Reflection</span></a>
+    <a onclick="showSection('about',this)" class="nav-link"><i>👤</i><span>About</span></a>
+  </nav>
+  <button class="theme-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span></button>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+
+<!-- ───────────── DASHBOARD ───────────── -->
+<section id="dashboard" class="active fade-in">
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-tag">EDU 222 · Final Performance Innovative Task</p>
+      <h1>Interactive Assessment<br><em>&amp; Feedback Hub</em></h1>
+      <p class="hero-sub">Authentic assessment, ICT competency tracking, parent communication, and reflective teaching — all in one place.</p>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.06)"/>
+        <circle cx="100" cy="100" r="55" fill="rgba(255,255,255,0.08)"/>
+        <text x="100" y="115" text-anchor="middle" font-size="52" fill="rgba(255,255,255,0.85)">📚</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stat-grid">
+    <div class="stat-card s1">
+      <div class="stat-icon">👩‍🎓</div>
+      <div>
+        <div class="stat-num" data-target="15">0</div>
+        <div class="stat-label">Students</div>
+      </div>
+      <div class="stat-spark">
+        <svg viewBox="0 0 60 30"><polyline points="0,25 10,18 20,22 30,10 40,14 50,5 60,8" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
+      </div>
+    </div>
+    <div class="stat-card s2">
+      <div class="stat-icon">🏆</div>
+      <div>
+        <div class="stat-num" data-target="83">0</div>
+        <div class="stat-label">Class Average %</div>
+      </div>
+      <div class="stat-spark">
+        <svg viewBox="0 0 60 30"><polyline points="0,20 12,14 24,18 36,8 48,12 60,6" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
+      </div>
+    </div>
+    <div class="stat-card s3">
+      <div class="stat-icon">💡</div>
+      <div>
+        <div class="stat-num" data-target="10">0</div>
+        <div class="stat-num-suffix">+</div>
+        <div class="stat-label">ICT Skills</div>
+      </div>
+    </div>
+    <div class="stat-card s4">
+      <div class="stat-icon">📈</div>
+      <div>
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">Portfolio Items</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grade Distribution -->
+  <div class="dash-row">
+    <div class="card">
+      <div class="card-header"><h2>Grade Distribution</h2><span class="card-tag">Live Data</span></div>
+      <canvas id="donutChart" height="220"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>Performance Trend</h2><span class="card-tag">15 Students</span></div>
+      <canvas id="radarChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Progress Bars -->
+  <div class="card">
+    <div class="card-header"><h2>ICT Competency Overview</h2><span class="card-tag">Class Avg</span></div>
+    <div class="progress-list">
+      <div class="prog-item">
+        <div class="prog-label"><span>Hardware Troubleshooting</span><span>88%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="88" style="--c:#4facfe"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Network Configuration</span><span>76%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="76" style="--c:#43e97b"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Software Installation</span><span>91%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="91" style="--c:#f093fb"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>System Recovery</span><span>82%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="82" style="--c:#f5576c"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Peripheral Setup</span><span>79%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="79" style="--c:#ffd166"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Security Practices</span><span>85%</span></div>
+        <div class="prog-track"><div class="prog-bar" data-w="85" style="--c:#06d6a0"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── PORTFOLIO ───────────── -->
+<section id="portfolio" class="fade-in">
+  <div class="page-title">
+    <h1>Authentic Portfolio</h1>
+    <p>ICT activities, outputs, and performance evidence</p>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <div class="port-card" onclick="openModal('modal1')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#1e3c72,#4facfe)">
+        <span>🖨️</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">Hardware</span>
+        <h3>Printer Troubleshooting</h3>
+        <p>Diagnosed printer connection issues, updated and reinstalled drivers, and tested print queue management.</p>
+        <div class="port-tags"><span>Driver Install</span><span>Diagnostics</span><span>Print Mgmt</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">May 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-card" onclick="openModal('modal2')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#11998e,#38ef7d)">
+        <span>📶</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">Networking</span>
+        <h3>Wi-Fi Connectivity Issue</h3>
+        <p>Updated network adapter drivers, reconfigured wireless settings, and resolved IP conflicts on the school LAN.</p>
+        <div class="port-tags"><span>Network Config</span><span>IP Setup</span><span>Driver Update</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">Apr 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-card" onclick="openModal('modal3')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#8E2DE2,#4A00E0)">
+        <span>💻</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">System</span>
+        <h3>Computer Boot Failure</h3>
+        <p>Used Safe Mode and Windows Startup Repair to recover a system with corrupted boot files and missing registry entries.</p>
+        <div class="port-tags"><span>Safe Mode</span><span>Boot Repair</span><span>Registry</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">Mar 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-card" onclick="openModal('modal4')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#f7971e,#ffd200)">
+        <span>📽️</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">Display</span>
+        <h3>Projector Display Issue</h3>
+        <p>Tested HDMI ports, replaced damaged cable, and configured VGA adapter as an alternate solution for classroom use.</p>
+        <div class="port-tags"><span>HDMI</span><span>VGA Adapter</span><span>Display Config</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">Feb 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-card" onclick="openModal('modal5')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#f953c6,#b91d73)">
+        <span>🔒</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">Security</span>
+        <h3>Account & Password Recovery</h3>
+        <p>Guided classmates through secure account recovery, multi-factor authentication setup, and safe password management.</p>
+        <div class="port-tags"><span>MFA</span><span>Password Mgmt</span><span>Security</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">Jan 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-card" onclick="openModal('modal6')">
+      <div class="port-thumb" style="background: linear-gradient(135deg,#0cebeb,#20e3b2,#29ffc6)">
+        <span>📦</span>
+      </div>
+      <div class="port-body">
+        <span class="port-cat">Software</span>
+        <h3>Software Installation Lab</h3>
+        <p>Led a peer installation activity covering Office Suite, antivirus tools, and productivity apps with proper licensing checks.</p>
+        <div class="port-tags"><span>MS Office</span><span>Antivirus</span><span>Licensing</span></div>
+        <div class="port-meta">
+          <span class="competency-badge">⭐ Competency Achieved</span>
+          <span class="port-date">Dec 2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reflection Guide -->
+  <div class="card">
+    <div class="card-header"><h2>Reflection Guide</h2><span class="card-tag">5-Step Framework</span></div>
+    <div class="reflection-steps">
+      <div class="ref-step"><div class="ref-num">01</div><div><strong>Learn</strong><p>What did I gain from this activity?</p></div></div>
+      <div class="ref-step"><div class="ref-num">02</div><div><strong>Challenge</strong><p>What problems did I encounter?</p></div></div>
+      <div class="ref-step"><div class="ref-num">03</div><div><strong>Solve</strong><p>How did I resolve the issue?</p></div></div>
+      <div class="ref-step"><div class="ref-num">04</div><div><strong>Grow</strong><p>Which skills improved?</p></div></div>
+      <div class="ref-step"><div class="ref-num">05</div><div><strong>Improve</strong><p>What would I do differently?</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── STUDENT CARDS ───────────── -->
+<section id="students" class="fade-in">
+  <div class="page-title">
+    <h1>Student Portfolio Cards</h1>
+    <p>Individual performance profiles for all 15 learners</p>
+  </div>
+  <div class="student-search-bar">
+    <input type="text" id="studentSearch" placeholder="🔍  Search student name…" oninput="filterStudents(this.value)">
+    <div class="filter-pills">
+      <button class="fpill active" onclick="filterGrade('all',this)">All</button>
+      <button class="fpill" onclick="filterGrade('A',this)">A Grade</button>
+      <button class="fpill" onclick="filterGrade('B',this)">B Grade</button>
+      <button class="fpill" onclick="filterGrade('C',this)">C Grade</button>
+    </div>
+  </div>
+  <div class="student-grid" id="studentGrid">
+    <!-- JS rendered -->
+  </div>
+</section>
+
+<!-- ───────────── GRADEBOOK ───────────── -->
+<section id="gradebook" class="fade-in">
+  <div class="page-title">
+    <h1>Multi-Method Gradebook</h1>
+    <p>Scores, descriptors, and visual analytics for all 15 students</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>Score Overview</h2><span class="card-tag">Bar Chart</span></div>
+    <canvas id="scoreChart" height="140"></canvas>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Grade Table</h2>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="text" id="gradeSearch" placeholder="Search…" style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-family:inherit;font-size:0.85rem;background:var(--bg-card);color:var(--text)" oninput="filterTable(this.value)">
+        <button class="btn-sm" onclick="sortTable()">⇅ Sort</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="gradeTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Student</th><th>Raw Score</th><th>Grade</th><th>Performance</th><th>Descriptor</th>
+          </tr>
+        </thead>
+        <tbody id="gradeBody"><!-- JS --></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Cumulative Method -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Cumulative Grading Method</h2>
+      <span class="card-tag">Component Breakdown</span>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;line-height:1.7">
+      The <strong>Cumulative Method</strong> weights each component:
+      <strong>Quizzes 25%</strong> · <strong>Activity/Performance 35%</strong> · <strong>Long Exam 25%</strong> · <strong>Participation 15%</strong>.
+      Compared below with the <strong>Averaging Method</strong> (simple unweighted mean).
+    </p>
+    <div class="table-wrap">
+      <table id="cumulTable">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Quiz <small style="opacity:.7">(25%)</small></th>
+            <th>Activity <small style="opacity:.7">(35%)</small></th>
+            <th>Long Exam <small style="opacity:.7">(25%)</small></th>
+            <th>Participation <small style="opacity:.7">(15%)</small></th>
+            <th>Cumulative</th>
+            <th>Averaging</th>
+            <th>Diff</th>
+          </tr>
+        </thead>
+        <tbody id="cumulBody"></tbody>
+      </table>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.76rem;margin-top:10px">* Averaging = simple mean of the four component raw scores (unweighted).</p>
+  </div>
+
+  <div class="dash-row">
+    <div class="card">
+      <div class="card-header"><h2>Score Scatter</h2><span class="card-tag">Distribution</span></div>
+      <canvas id="scatterChart" height="200"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>Grade Breakdown</h2><span class="card-tag">By Letter</span></div>
+      <canvas id="gradeBarChart" height="200"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── TOOLKIT ───────────── -->
+<section id="toolkit" class="fade-in">
+  <div class="page-title">
+    <h1>Parent Communication Toolkit</h1>
+    <p>Send progress updates and generate reports</p>
+  </div>
+
+  <div class="dash-row">
+    <div class="card">
+      <div class="card-header"><h2>Message Composer</h2><span class="card-tag">Live Preview</span></div>
+      <div class="form-group">
+        <label>Parent / Guardian Name</label>
+        <input type="text" id="parentName" placeholder="e.g. Mrs. Santos">
+      </div>
+      <div class="form-group">
+        <label>Student Name</label>
+        <select id="studentSelect">
+          <option value="">— Choose student —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message Template</label>
+        <div class="template-pills">
+          <button class="tpill" onclick="useTemplate('progress')">📈 Progress Update</button>
+          <button class="tpill" onclick="useTemplate('concern')">⚠️ Area of Concern</button>
+          <button class="tpill" onclick="useTemplate('praise')">🌟 Achievement Notice</button>
+          <button class="tpill" onclick="useTemplate('conference')">📅 Conference Invite</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message Body</label>
+        <textarea id="message" rows="6" placeholder="Type your message or use a template above…"></textarea>
+      </div>
+      <button class="btn" onclick="sendMessage()">📤 Send Message</button>
+      <div id="confirmation" class="confirm-msg"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Live Message Preview</h2></div>
+      <div class="letter-preview" id="letterPreview">
+        <div class="letter-header">
+          <strong>BTLED ICT — EDU 222</strong><br>
+          <span id="previewDate"></span>
+        </div>
+        <div class="letter-body">
+          <p>Dear <span id="prevParent" class="preview-fill">Parent/Guardian</span>,</p>
+          <p id="prevMsg" class="preview-fill">Your message will appear here as you type.</p>
+          <p>Sincerely,<br><strong>Teacher Awitin</strong><br><em>BTLEd ICT Instructor</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Narrative Report -->
+  <div class="card">
+    <div class="card-header"><h2>Narrative Report Generator</h2><span class="card-tag">Communication Packet</span></div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;line-height:1.7">A <strong>Narrative Report</strong> is a written paragraph communicating a student&#39;s holistic performance beyond numbers. Select a student to auto-generate a personalized report, or edit it freely.</p>
+    <div class="dash-row" style="margin-bottom:0">
+      <div>
+        <div class="form-group">
+          <label>Select Student</label>
+          <select id="narrativeStudent" onchange="generateNarrative()">
+            <option value="">&#8212; Choose student &#8212;</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Grading Period</label>
+          <select id="narrativePeriod">
+            <option>1st Grading Period</option>
+            <option selected>2nd Grading Period</option>
+            <option>3rd Grading Period</option>
+            <option>Final Period</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tone</label>
+          <div class="template-pills">
+            <button class="tpill active-t" onclick="setNarrativeTone(&#39;formal&#39;,this)">&#128203; Formal</button>
+            <button class="tpill" onclick="setNarrativeTone(&#39;warm&#39;,this)">&#128155; Warm</button>
+            <button class="tpill" onclick="setNarrativeTone(&#39;concern&#39;,this)">&#9888;&#65039; Needs Support</button>
+          </div>
+        </div>
+        <button class="btn" style="margin-bottom:10px" onclick="generateNarrative()">&#9997;&#65039; Generate Report</button>
+        &nbsp;
+        <button class="btn" style="background:var(--bg);color:var(--text);border:1.5px solid var(--border);box-shadow:none;margin-top:8px" onclick="downloadNarrative()">&#11015; Download</button>
+      </div>
+      <div>
+        <label style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px">Report Preview</label>
+        <div class="narrative-preview" id="narrativePreview">
+          <div class="narrative-header">
+            <strong>NARRATIVE REPORT &#8212; BTLEd ICT (EDU 222)</strong><br>
+            <span id="narrativePeriodDisplay">2nd Grading Period &middot; A.Y. 2025&#8211;2026</span>
+          </div>
+          <div id="narrativeBody" style="color:var(--text-muted);font-style:italic;font-size:0.85rem">Select a student and click Generate to preview the report.</div>
+          <div class="narrative-footer">
+            Prepared by: <strong>Teacher Awitin</strong> &middot; BTLEd ICT Instructor<br>
+            Date: <span id="narrativeDate"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-row">
+    <div class="card">
+      <div class="card-header"><h2>Conference Agenda</h2><span class="card-tag">Checklist</span></div>
+      <div class="agenda-list">
+        <label class="agenda-item"><input type="checkbox" checked> <span>Review academic performance & grades</span></label>
+        <label class="agenda-item"><input type="checkbox" checked> <span>Discuss classroom participation & behavior</span></label>
+        <label class="agenda-item"><input type="checkbox"> <span>Highlight student strengths</span></label>
+        <label class="agenda-item"><input type="checkbox"> <span>Identify areas for improvement</span></label>
+        <label class="agenda-item"><input type="checkbox"> <span>Action plan for next grading period</span></label>
+        <label class="agenda-item"><input type="checkbox"> <span>Collect parent suggestions & feedback</span></label>
+        <label class="agenda-item"><input type="checkbox"> <span>Set follow-up schedule</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h2>Generate Report Card</h2></div>
+      <p style="color:var(--text-muted);margin-bottom:16px">Download a formatted report card for all 15 students.</p>
+      <div class="form-group">
+        <label>Select Student</label>
+        <select id="reportStudent">
+          <option value="all">All Students</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Format</label>
+        <div class="template-pills">
+          <button class="tpill active-t" onclick="setFormat('txt',this)">📄 TXT</button>
+          <button class="tpill" onclick="setFormat('csv',this)">📊 CSV</button>
+        </div>
+      </div>
+      <button class="btn" onclick="downloadReport()">⬇ Download Report Card</button>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── REFLECTION ───────────── -->
+<section id="reflection" class="fade-in">
+  <div class="page-title">
+    <h1>Reflective Practice Dashboard</h1>
+    <p>Data-linked teaching adjustment plan and self-assessment</p>
+  </div>
+
+  <!-- Teaching Adjustment Plan -->
+  <div class="card">
+    <div class="card-header"><h2>Teaching Adjustment Plan</h2><span class="card-tag">Data-Driven</span></div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;line-height:1.7">
+      Based on the 15-student assessment data from this grading period, the following adjustments are proposed for the <strong>next semester</strong>. Each strategy is directly justified by specific learner attainment data.
+    </p>
+
+    <div class="tap-section">
+      <div class="tap-header">
+        <div class="tap-icon" style="background:rgba(245,87,108,0.1);color:#f5576c">⚠️</div>
+        <div>
+          <h4>Finding 1: Three Students Below 75 — Critical Intervention Needed</h4>
+          <span class="tap-data-tag">Students: Felix (67%), Jack (70%), Cara (72%)</span>
+        </div>
+      </div>
+      <div class="tap-body">
+        <p><strong>Data Interpretation:</strong> Felix, Jack, and Cara scored below the passing threshold of 75%. Their performance descriptors ("Needs support," "Needs troubleshooting practice," "Needs improvement") indicate difficulty with both conceptual understanding and hands-on application.</p>
+        <p><strong>Teaching Adjustment:</strong> Implement a <em>tiered remediation programme</em> at the start of the next semester. These three students will be paired with high-performing peers (Mia, Ben, Iris) for weekly co-troubleshooting lab sessions. Additionally, simplified diagnostic checklists will be introduced to reduce cognitive load during hardware tasks.</p>
+        <div class="tap-strategy-pill">📌 Peer Mentoring + Scaffolded Checklists</div>
+      </div>
+    </div>
+
+    <div class="tap-section">
+      <div class="tap-header">
+        <div class="tap-icon" style="background:rgba(255,209,102,0.15);color:#c07800">📊</div>
+        <div>
+          <h4>Finding 2: Five C-Range Students Clustered at 70–79%</h4>
+          <span class="tap-data-tag">Students: Hugo (76%), Liam (78%), Noah (74%), Jack (70%), Cara (72%)</span>
+        </div>
+      </div>
+      <div class="tap-body">
+        <p><strong>Data Interpretation:</strong> A cluster of five students sit in the C range. Their descriptors ("Average performance," "Needs reflection," "Needs consistency") suggest inconsistent effort and limited metacognitive awareness rather than a lack of capability.</p>
+        <p><strong>Teaching Adjustment:</strong> Introduce <em>weekly reflective journals</em> where students self-assess their own ICT task performance against a rubric. This builds metacognition and accountability. Additionally, low-stakes formative quizzes every two weeks will provide early feedback before summative assessments.</p>
+        <div class="tap-strategy-pill">📌 Reflective Journals + Formative Quizzes</div>
+      </div>
+    </div>
+
+    <div class="tap-section">
+      <div class="tap-header">
+        <div class="tap-icon" style="background:rgba(67,233,123,0.12);color:#14a054">🏆</div>
+        <div>
+          <h4>Finding 3: Four A-Range Students — Sustain and Extend Excellence</h4>
+          <span class="tap-data-tag">Students: Mia (96%), Ben (95%), Iris (92%), Ella (90%)</span>
+        </div>
+      </div>
+      <div class="tap-body">
+        <p><strong>Data Interpretation:</strong> Four students consistently achieved A-range scores with descriptors like "Outstanding initiative" and "Excellent technical skills." These learners are at risk of disengagement if the curriculum does not challenge them further.</p>
+        <p><strong>Teaching Adjustment:</strong> Provide <em>extension tasks</em> — such as leading mini-demonstrations, preparing how-to guides for classmates, or tackling advanced ICT scenarios (e.g., network security simulations). This sustains their engagement while benefiting the whole class through peer teaching.</p>
+        <div class="tap-strategy-pill">📌 Extension Tasks + Peer Teaching Roles</div>
+      </div>
+    </div>
+
+    <div class="tap-section">
+      <div class="tap-header">
+        <div class="tap-icon" style="background:rgba(79,172,254,0.12);color:#2a7ccf">📈</div>
+        <div>
+          <h4>Finding 4: Network Configuration Scored Lowest (76% Class Avg)</h4>
+          <span class="tap-data-tag">ICT Competency Area: Networking — lowest among all 6 areas</span>
+        </div>
+      </div>
+      <div class="tap-body">
+        <p><strong>Data Interpretation:</strong> Among all six ICT competency areas tracked, Network Configuration had the lowest class average at 76%. This suggests the current instructional approach for networking topics is insufficient — likely due to limited hands-on lab time and abstract delivery.</p>
+        <p><strong>Teaching Adjustment:</strong> Redesign the networking unit to include a <em>dedicated Lab Immersion Week</em> with simulation tools (e.g., Cisco Packet Tracer). Activities will require students to physically configure routers, assign IP addresses, and troubleshoot connectivity — moving from lecture-based to fully experiential learning.</p>
+        <div class="tap-strategy-pill">📌 Lab Immersion Week + Packet Tracer Simulations</div>
+      </div>
+    </div>
+
+    <div class="tap-section">
+      <div class="tap-header">
+        <div class="tap-icon" style="background:rgba(240,147,251,0.12);color:#a021c9">🎯</div>
+        <div>
+          <h4>Finding 5: Assessment Method Lacks Variety</h4>
+          <span class="tap-data-tag">Non-test Data: Participation observations and portfolio entries</span>
+        </div>
+      </div>
+      <div class="tap-body">
+        <p><strong>Data Interpretation:</strong> Several strong performers in practical labs (e.g., Grace — "Good participation") scored lower on written assessments. This indicates the current grading system may not fully capture practical ICT competence, disadvantaging hands-on learners.</p>
+        <p><strong>Teaching Adjustment:</strong> Shift toward <em>differentiated assessment</em> by increasing the weight of performance tasks and portfolio evidence in the final grade computation. Introduce rubric-based practical assessments for every major lab activity so that hands-on skills are formally credited alongside written tests.</p>
+        <div class="tap-strategy-pill">📌 Differentiated Assessment + Weighted Practical Tasks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategy Summary -->
+  <div class="card">
+    <div class="card-header"><h2>Strategy Overview</h2><span class="card-tag">Next Semester</span></div>
+    <div class="strategy-grid">
+      <div class="strategy-card str1">
+        <div class="str-icon">🤝</div>
+        <h4>Peer Mentoring</h4>
+        <p>High-performing students paired with those below 75% for weekly co-troubleshooting labs.</p>
+        <div class="str-tag">For: Felix, Jack, Cara</div>
+      </div>
+      <div class="strategy-card str2">
+        <div class="str-icon">🔧</div>
+        <h4>Scaffolded Checklists</h4>
+        <p>Step-by-step diagnostic checklists to reduce cognitive load during hardware and software tasks.</p>
+        <div class="str-tag">For: C &amp; D Range Students</div>
+      </div>
+      <div class="strategy-card str3">
+        <div class="str-icon">🪞</div>
+        <h4>Reflective Journals</h4>
+        <p>Weekly self-assessment against a rubric builds metacognition and personal accountability.</p>
+        <div class="str-tag">For: C Range Cluster</div>
+      </div>
+      <div class="strategy-card str4">
+        <div class="str-icon">🧪</div>
+        <h4>Lab Immersion Week</h4>
+        <p>Dedicated networking week using Packet Tracer simulations for experiential learning.</p>
+        <div class="str-tag">For: Whole Class</div>
+      </div>
+      <div class="strategy-card str5">
+        <div class="str-icon">⭐</div>
+        <h4>Extension Tasks</h4>
+        <p>Advanced scenarios and peer-teaching roles for A-range students to sustain engagement.</p>
+        <div class="str-tag">For: Mia, Ben, Iris, Ella</div>
+      </div>
+      <div class="strategy-card str6">
+        <div class="str-icon">🎯</div>
+        <h4>Differentiated Assessment</h4>
+        <p>Increase weighting of practical/portfolio tasks to better capture hands-on ICT competence.</p>
+        <div class="str-tag">For: All Students</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal Log -->
+  <div class="card">
+    <div class="card-header"><h2>My Reflective Log</h2><span class="card-tag">Personal</span></div>
+    <div class="form-group">
+      <label>Teaching Date / Activity</label>
+      <input type="text" id="refTitle" placeholder="e.g. Hardware Lab — May 8, 2026">
+    </div>
+    <div class="form-group">
+      <label>Reflection Entry</label>
+      <textarea id="refEntry" rows="5" placeholder="What worked? What didn't? What will I change?"></textarea>
+    </div>
+    <button class="btn" onclick="saveReflection()">💾 Save Entry</button>
+    <div id="refLog" class="ref-log"></div>
+  </div>
+</section>
+
+<!-- ───────────── ABOUT ───────────── -->
+<section id="about" class="fade-in">
+  <div class="page-title">
+    <h1>About This Project</h1>
+  </div>
+  <div class="about-hero">
+    <div class="about-avatar">
+      <div class="avatar-initials-lg">S</div>
+    </div>
+    <div class="about-info">
+      <h2>Awitin</h2>
+      <p class="about-role">BTLEd ICT Student · EDU 222</p>
+      <p>This Interactive Assessment &amp; Feedback Hub was created as a Final Performance Innovative Task for EDU 222. It demonstrates authentic assessment methodologies, multi-method grading systems, parent communication strategies, and reflective teaching practice — all built with modern web technologies.</p>
+      <div class="about-tags">
+        <span>Authentic Assessment</span>
+        <span>ICT Integration</span>
+        <span>Parent Communication</span>
+        <span>Reflective Teaching</span>
+        <span>Data Visualization</span>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>AI Acknowledgement</h2></div>
+    <p style="color:var(--text-muted);line-height:1.8">AI tools were used to support brainstorming, coding assistance, and structural guidance during the creation of this project. All content, student data, reflections, and pedagogical decisions were reviewed, customized, and finalized by the student. This project represents the student's own understanding of assessment principles and ICT teaching methodology.</p>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>Technologies Used</h2></div>
+    <div class="tech-grid">
+      <div class="tech-item"><span>🌐</span><strong>HTML5</strong><p>Semantic structure</p></div>
+      <div class="tech-item"><span>🎨</span><strong>CSS3</strong><p>Animations &amp; layout</p></div>
+      <div class="tech-item"><span>⚡</span><strong>JavaScript</strong><p>Interactivity &amp; logic</p></div>
+      <div class="tech-item"><span>📊</span><strong>Chart.js</strong><p>Data visualization</p></div>
+      <div class="tech-item"><span>🔤</span><strong>Google Fonts</strong><p>Typography</p></div>
+      <div class="tech-item"><span>📱</span><strong>Responsive</strong><p>Mobile-ready design</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ───────────── PORTFOLIO MODALS ───────────── -->
+<div class="modal-overlay" id="modal1" onclick="closeModal('modal1')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal1')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#1e3c72,#4facfe)"><span>🖨️</span></div>
+    <h2>Printer Troubleshooting</h2>
+    <span class="port-cat">Hardware</span>
+    <p>Diagnosed a printer connection issue in the school computer laboratory. The printer was not being detected by Windows 11. Steps taken:</p>
+    <ol class="modal-steps">
+      <li>Verified physical cable connections (USB and power)</li>
+      <li>Opened Device Manager → identified missing driver</li>
+      <li>Downloaded official driver from manufacturer website</li>
+      <li>Cleared the print queue via Windows Services</li>
+      <li>Ran printer test page — successfully printed</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> Printer fully restored. Time: 25 minutes. Students impacted: 15.</div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal2" onclick="closeModal('modal2')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal2')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)"><span>📶</span></div>
+    <h2>Wi-Fi Connectivity Issue</h2>
+    <span class="port-cat">Networking</span>
+    <p>Resolved a classroom-wide Wi-Fi connectivity issue where multiple student devices failed to connect to the school network.</p>
+    <ol class="modal-steps">
+      <li>Pinged gateway to confirm router was reachable</li>
+      <li>Identified IP conflict via ipconfig /all</li>
+      <li>Released and renewed IP addresses (ipconfig /release /renew)</li>
+      <li>Updated wireless adapter drivers on affected machines</li>
+      <li>Reconfigured DHCP settings on the access point</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> Full connectivity restored for 15 devices. Time: 40 minutes.</div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal3" onclick="closeModal('modal3')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal3')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#8E2DE2,#4A00E0)"><span>💻</span></div>
+    <h2>Computer Boot Failure</h2>
+    <span class="port-cat">System Recovery</span>
+    <p>A school computer failed to boot after an incomplete Windows update. The system displayed a "Boot Configuration Data" error.</p>
+    <ol class="modal-steps">
+      <li>Booted from Windows Recovery USB</li>
+      <li>Ran Startup Repair from Advanced Options</li>
+      <li>Executed bootrec /fixmbr and bootrec /rebuildbcd</li>
+      <li>Used System Restore to roll back to a stable checkpoint</li>
+      <li>Verified all system files with sfc /scannow</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> System fully recovered. Data preserved. Time: 1 hour.</div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal4" onclick="closeModal('modal4')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal4')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><span>📽️</span></div>
+    <h2>Projector Display Issue</h2>
+    <span class="port-cat">Display Hardware</span>
+    <p>The classroom projector failed to display the teacher's laptop screen during a demonstration lesson.</p>
+    <ol class="modal-steps">
+      <li>Tested multiple HDMI cables — found one with bent pins</li>
+      <li>Attempted alternate HDMI port on both projector and laptop</li>
+      <li>Switched to VGA adapter as backup solution</li>
+      <li>Adjusted display settings: Win+P → Duplicate/Extend</li>
+      <li>Documented issue and recommended cable replacement</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> Lesson resumed in 10 minutes using VGA adapter. Requested new HDMI cable procurement.</div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal5" onclick="closeModal('modal5')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal5')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#f953c6,#b91d73)"><span>🔒</span></div>
+    <h2>Account & Password Recovery</h2>
+    <span class="port-cat">Security</span>
+    <p>Three students lost access to their school Google accounts. Assisted with secure account recovery and set up security measures.</p>
+    <ol class="modal-steps">
+      <li>Guided students through Google Account Recovery process</li>
+      <li>Verified identity using backup email/phone</li>
+      <li>Enabled 2-Factor Authentication (2FA) on all accounts</li>
+      <li>Introduced password manager (Bitwarden) for secure storage</li>
+      <li>Conducted mini-lesson on password hygiene for the class</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> All accounts recovered. Class completed security awareness session. Time: 35 minutes.</div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal6" onclick="closeModal('modal6')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal6')">✕</button>
+    <div class="modal-thumb" style="background:linear-gradient(135deg,#0cebeb,#20e3b2,#29ffc6)"><span>📦</span></div>
+    <h2>Software Installation Lab</h2>
+    <span class="port-cat">Software</span>
+    <p>Led a structured software installation activity where the whole class installed and configured essential productivity software.</p>
+    <ol class="modal-steps">
+      <li>Prepared USB drives with installation files (offline installer)</li>
+      <li>Installed Microsoft Office 365 with valid school licenses</li>
+      <li>Configured Malwarebytes for real-time protection</li>
+      <li>Set up LibreOffice as an open-source alternative</li>
+      <li>Documented software inventory for the lab</li>
+    </ol>
+    <div class="modal-outcome"><strong>Outcome:</strong> 15 computers configured in under 2 hours. Full software inventory documented.</div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
