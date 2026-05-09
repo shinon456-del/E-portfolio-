@@ -3,428 +3,757 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Assessment & Feedback Hub — Awitin</title>
+  <title>Interactive Assessment &amp; Feedback Hub — Axel jess C. Awitin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Hamburger -->
-<button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-  <span></span><span></span><span></span>
+<!-- ═══════════════════════════════════════
+     MOBILE MENU TOGGLE
+════════════════════════════════════════ -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Open navigation">
+  <span></span>
+  <span></span>
+  <span></span>
 </button>
 
-<!-- Sidebar -->
+<!-- ═══════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════ -->
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-glow"></div>
-  <div class="profile">
-    <div class="avatar-ring">
-      <div class="avatar-initials">S</div>
-    </div>
-    <h2>Awitin</h2>
-    <span class="badge">BTLEd ICT Student</span>
-    <div class="meta-pill">EDU 222 · 2026</div>
+
+  <div class="sidebar-brand">
+    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+    <span>IAFH</span>
   </div>
-  <nav>
-    <a onclick="showSection('dashboard',this)" class="nav-link active-link"><i>🏠</i><span>Dashboard</span></a>
-    <a onclick="showSection('portfolio',this)" class="nav-link"><i>📁</i><span>Portfolio</span></a>
-    <a onclick="showSection('students',this)" class="nav-link"><i>👥</i><span>Student Cards</span></a>
-    <a onclick="showSection('gradebook',this)" class="nav-link"><i>📊</i><span>Gradebook</span></a>
-    <a onclick="showSection('toolkit',this)" class="nav-link"><i>📨</i><span>Parent Toolkit</span></a>
-    <a onclick="showSection('reflection',this)" class="nav-link"><i>📝</i><span>Reflection</span></a>
-    <a onclick="showSection('about',this)" class="nav-link"><i>👤</i><span>About</span></a>
+
+  <div class="sidebar-profile">
+    <div class="profile-photo-wrap">
+      <img src="axel.webp" alt="Axel jess C. Awitin" class="profile-photo">
+    </div>
+    <p class="profile-name">Axel jess C. Awitin</p>
+    <p class="profile-role">BTLEd ICT Student</p>
+    <p class="profile-meta">EDU 222 &middot; A.Y. 2025&ndash;2026</p>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Main navigation">
+
+    <a class="nav-link active-link" onclick="showSection('dashboard', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+      <span>Dashboard</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('portfolio', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+      </svg>
+      <span>Portfolio</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('students', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <span>Students</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('gradebook', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span>Gradebook</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('toolkit', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+      </svg>
+      <span>Toolkit</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('reflection', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+      </svg>
+      <span>Reflection</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('rubric', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      <span>Rubric</span>
+    </a>
+
+    <a class="nav-link" onclick="showSection('about', this)" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>About</span>
+    </a>
+
   </nav>
-  <button class="theme-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span></button>
+
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+    <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <span id="themeLabel">Dark Mode</span>
+  </button>
+
 </aside>
 
-<!-- Main Content -->
-<main class="main">
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════ -->
+<main class="main" id="main">
 
-<!-- ───────────── DASHBOARD ───────────── -->
-<section id="dashboard" class="active fade-in">
+<!-- ─────────────────────────────────────
+     DASHBOARD
+───────────────────────────────────── -->
+<section id="dashboard" class="section active fade-in">
+
   <div class="hero">
-    <div class="hero-text">
-      <p class="hero-tag">EDU 222 · Final Performance Innovative Task</p>
-      <h1>Interactive Assessment<br><em>&amp; Feedback Hub</em></h1>
-      <p class="hero-sub">Authentic assessment, ICT competency tracking, parent communication, and reflective teaching — all in one place.</p>
+    <div class="hero-eyebrow">EDU 222 &mdash; Final Performance Innovative Task</div>
+    <h1 class="hero-title">Interactive Assessment<br><em>&amp; Feedback Hub</em></h1>
+    <p class="hero-subtitle">Authentic assessment, ICT competency tracking, parent communication, and reflective teaching practice — consolidated in one place.</p>
+    <div class="hero-actions">
+      <button class="hero-btn hero-btn-primary" onclick="showSection('portfolio', document.querySelector('[onclick*=portfolio]'))">
+        View Portfolio
+      </button>
+      <button class="hero-btn hero-btn-secondary" onclick="showSection('gradebook', document.querySelector('[onclick*=gradebook]'))">
+        Open Gradebook
+      </button>
+      <button class="hero-btn hero-btn-secondary" onclick="showSection('toolkit', document.querySelector('[onclick*=toolkit]'))">
+        Contact Parents
+      </button>
     </div>
-    <div class="hero-art">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.06)"/>
-        <circle cx="100" cy="100" r="55" fill="rgba(255,255,255,0.08)"/>
-        <text x="100" y="115" text-anchor="middle" font-size="52" fill="rgba(255,255,255,0.85)">📚</text>
+    <div class="hero-decoration" aria-hidden="true">
+      <div class="hero-circle c1"></div>
+      <div class="hero-circle c2"></div>
+      <div class="hero-circle c3"></div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon-wrap accent-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-num" data-target="15">0</div>
+        <div class="stat-label">Enrolled Students</div>
+      </div>
+      <svg class="stat-spark" viewBox="0 0 60 30" aria-hidden="true">
+        <polyline points="0,25 10,18 20,22 30,10 40,14 50,5 60,8" stroke="currentColor" stroke-width="2" fill="none"/>
       </svg>
     </div>
-  </div>
 
-  <!-- Stat Cards -->
-  <div class="stat-grid">
-    <div class="stat-card s1">
-      <div class="stat-icon">👩‍🎓</div>
-      <div>
-        <div class="stat-num" data-target="15">0</div>
-        <div class="stat-label">Students</div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap accent-green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+        </svg>
       </div>
-      <div class="stat-spark">
-        <svg viewBox="0 0 60 30"><polyline points="0,25 10,18 20,22 30,10 40,14 50,5 60,8" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
-      </div>
-    </div>
-    <div class="stat-card s2">
-      <div class="stat-icon">🏆</div>
-      <div>
+      <div class="stat-content">
         <div class="stat-num" data-target="83">0</div>
-        <div class="stat-label">Class Average %</div>
+        <div class="stat-label">Class Average (%)</div>
       </div>
-      <div class="stat-spark">
-        <svg viewBox="0 0 60 30"><polyline points="0,20 12,14 24,18 36,8 48,12 60,6" stroke="currentColor" stroke-width="2.5" fill="none"/></svg>
+      <svg class="stat-spark" viewBox="0 0 60 30" aria-hidden="true">
+        <polyline points="0,20 12,14 24,18 36,8 48,12 60,6" stroke="currentColor" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon-wrap accent-purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-num" data-target="6">0</div>
+        <div class="stat-label">ICT Competencies</div>
       </div>
     </div>
-    <div class="stat-card s3">
-      <div class="stat-icon">💡</div>
-      <div>
-        <div class="stat-num" data-target="10">0</div>
-        <div class="stat-num-suffix">+</div>
-        <div class="stat-label">ICT Skills</div>
+
+    <div class="stat-card">
+      <div class="stat-icon-wrap accent-amber">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-num" data-target="6">0</div>
+        <div class="stat-label">Portfolio Entries</div>
       </div>
     </div>
-    <div class="stat-card s4">
-      <div class="stat-icon">📈</div>
-      <div>
-        <div class="stat-num" data-target="4">0</div>
-        <div class="stat-label">Portfolio Items</div>
-      </div>
-    </div>
+
   </div>
 
-  <!-- Grade Distribution -->
-  <div class="dash-row">
+  <div class="two-col">
     <div class="card">
-      <div class="card-header"><h2>Grade Distribution</h2><span class="card-tag">Live Data</span></div>
+      <div class="card-header">
+        <h2>Grade Distribution</h2>
+        <span class="card-tag">Current Period</span>
+      </div>
       <canvas id="donutChart" height="220"></canvas>
     </div>
     <div class="card">
-      <div class="card-header"><h2>Performance Trend</h2><span class="card-tag">15 Students</span></div>
+      <div class="card-header">
+        <h2>ICT Competency Radar</h2>
+        <span class="card-tag">Class Average</span>
+      </div>
       <canvas id="radarChart" height="220"></canvas>
     </div>
   </div>
 
-  <!-- Progress Bars -->
   <div class="card">
-    <div class="card-header"><h2>ICT Competency Overview</h2><span class="card-tag">Class Avg</span></div>
+    <div class="card-header">
+      <h2>Competency Progress</h2>
+      <span class="card-tag">Class Average by Skill</span>
+    </div>
     <div class="progress-list">
-      <div class="prog-item">
-        <div class="prog-label"><span>Hardware Troubleshooting</span><span>88%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="88" style="--c:#4facfe"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">Hardware Troubleshooting</span>
+        <div class="prog-track"><div class="prog-fill" data-w="88" style="--fill-color: var(--blue)"></div></div>
+        <span class="prog-pct">88%</span>
       </div>
-      <div class="prog-item">
-        <div class="prog-label"><span>Network Configuration</span><span>76%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="76" style="--c:#43e97b"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">Network Configuration</span>
+        <div class="prog-track"><div class="prog-fill" data-w="76" style="--fill-color: var(--green)"></div></div>
+        <span class="prog-pct">76%</span>
       </div>
-      <div class="prog-item">
-        <div class="prog-label"><span>Software Installation</span><span>91%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="91" style="--c:#f093fb"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">Software Installation</span>
+        <div class="prog-track"><div class="prog-fill" data-w="91" style="--fill-color: var(--purple)"></div></div>
+        <span class="prog-pct">91%</span>
       </div>
-      <div class="prog-item">
-        <div class="prog-label"><span>System Recovery</span><span>82%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="82" style="--c:#f5576c"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">System Recovery</span>
+        <div class="prog-track"><div class="prog-fill" data-w="82" style="--fill-color: var(--rose)"></div></div>
+        <span class="prog-pct">82%</span>
       </div>
-      <div class="prog-item">
-        <div class="prog-label"><span>Peripheral Setup</span><span>79%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="79" style="--c:#ffd166"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">Peripheral Setup</span>
+        <div class="prog-track"><div class="prog-fill" data-w="79" style="--fill-color: var(--amber)"></div></div>
+        <span class="prog-pct">79%</span>
       </div>
-      <div class="prog-item">
-        <div class="prog-label"><span>Security Practices</span><span>85%</span></div>
-        <div class="prog-track"><div class="prog-bar" data-w="85" style="--c:#06d6a0"></div></div>
+      <div class="prog-row">
+        <span class="prog-name">Security Practices</span>
+        <div class="prog-track"><div class="prog-fill" data-w="85" style="--fill-color: var(--teal)"></div></div>
+        <span class="prog-pct">85%</span>
       </div>
     </div>
   </div>
+
 </section>
 
-<!-- ───────────── PORTFOLIO ───────────── -->
-<section id="portfolio" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     PORTFOLIO
+───────────────────────────────────── -->
+<section id="portfolio" class="section fade-in">
+
+  <div class="page-header">
     <h1>Authentic Portfolio</h1>
-    <p>ICT activities, outputs, and performance evidence</p>
+    <p>ICT laboratory activities, documented outputs, and competency evidence</p>
+  </div>
+
+  <div class="card portfolio-type-card">
+    <div class="card-header">
+      <h2>Portfolio Type: Showcase Portfolio</h2>
+      <span class="card-tag">Growth Portfolio Elements Included</span>
+    </div>
+    <div class="portfolio-type-grid">
+      <div class="portfolio-type-item selected">
+        <div class="pt-icon pt-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Showcase Portfolio <span class="selected-badge">Selected</span></h4>
+          <p>Presents the student's best and most representative ICT work. Each entry demonstrates a specific competency achieved, with documented evidence of the problem, process, and outcome. Designed to communicate excellence to teachers, peers, and parents.</p>
+        </div>
+      </div>
+      <div class="portfolio-type-item">
+        <div class="pt-icon pt-muted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <div>
+          <h4>Growth Portfolio</h4>
+          <p>Documents a student's progress over time, including early drafts, revisions, and improvements. Emphasises the learning journey rather than best work alone. Growth elements are incorporated here through the 5-Step Reflection Guide below.</p>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-rationale">
+      <strong>Rationale:</strong> The Showcase Portfolio was selected because it aligns with the BTLEd ICT specialisation's emphasis on demonstrating technical competency outcomes. Each entry represents a real classroom or laboratory scenario where the student successfully applied ICT knowledge and skills. The 5-Step Reflection Guide incorporates growth portfolio principles by requiring learners to document what they learned, what challenges they faced, and how they would improve.
+    </div>
   </div>
 
   <div class="portfolio-grid">
 
-    <div class="port-card" onclick="openModal('modal1')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#1e3c72,#4facfe)">
-        <span>🖨️</span>
+    <article class="port-card" onclick="openModal('modal1')" tabindex="0" role="button" aria-label="View Printer Troubleshooting details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
       </div>
       <div class="port-body">
         <span class="port-cat">Hardware</span>
         <h3>Printer Troubleshooting</h3>
-        <p>Diagnosed printer connection issues, updated and reinstalled drivers, and tested print queue management.</p>
-        <div class="port-tags"><span>Driver Install</span><span>Diagnostics</span><span>Print Mgmt</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">May 2026</span>
+        <p>Diagnosed connection failures, reinstalled drivers, and restored full print queue functionality in the school lab.</p>
+        <div class="port-tags">
+          <span>Driver Install</span><span>Diagnostics</span><span>Print Queue</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>May 2026</time>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="port-card" onclick="openModal('modal2')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#11998e,#38ef7d)">
-        <span>📶</span>
+    <article class="port-card" onclick="openModal('modal2')" tabindex="0" role="button" aria-label="View Wi-Fi Connectivity details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #0a5940 0%, #11998e 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+        </svg>
       </div>
       <div class="port-body">
         <span class="port-cat">Networking</span>
         <h3>Wi-Fi Connectivity Issue</h3>
-        <p>Updated network adapter drivers, reconfigured wireless settings, and resolved IP conflicts on the school LAN.</p>
-        <div class="port-tags"><span>Network Config</span><span>IP Setup</span><span>Driver Update</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">Apr 2026</span>
+        <p>Resolved IP conflicts, updated wireless adapter drivers, and reconfigured DHCP settings on the school LAN.</p>
+        <div class="port-tags">
+          <span>Network Config</span><span>IP Setup</span><span>Driver Update</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>Apr 2026</time>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="port-card" onclick="openModal('modal3')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#8E2DE2,#4A00E0)">
-        <span>💻</span>
+    <article class="port-card" onclick="openModal('modal3')" tabindex="0" role="button" aria-label="View Boot Failure details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #3b0764 0%, #6d28d9 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
       </div>
       <div class="port-body">
-        <span class="port-cat">System</span>
+        <span class="port-cat">System Recovery</span>
         <h3>Computer Boot Failure</h3>
-        <p>Used Safe Mode and Windows Startup Repair to recover a system with corrupted boot files and missing registry entries.</p>
-        <div class="port-tags"><span>Safe Mode</span><span>Boot Repair</span><span>Registry</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">Mar 2026</span>
+        <p>Used Windows Startup Repair and bootrec commands to restore a system with corrupted boot configuration data.</p>
+        <div class="port-tags">
+          <span>Safe Mode</span><span>Boot Repair</span><span>Registry</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>Mar 2026</time>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="port-card" onclick="openModal('modal4')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#f7971e,#ffd200)">
-        <span>📽️</span>
+    <article class="port-card" onclick="openModal('modal4')" tabindex="0" role="button" aria-label="View Projector Issue details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #92400e 0%, #f59e0b 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/>
+        </svg>
       </div>
       <div class="port-body">
-        <span class="port-cat">Display</span>
+        <span class="port-cat">Display Hardware</span>
         <h3>Projector Display Issue</h3>
-        <p>Tested HDMI ports, replaced damaged cable, and configured VGA adapter as an alternate solution for classroom use.</p>
-        <div class="port-tags"><span>HDMI</span><span>VGA Adapter</span><span>Display Config</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">Feb 2026</span>
+        <p>Replaced faulty HDMI cable and configured VGA adapter as a backup to restore classroom display during a lesson.</p>
+        <div class="port-tags">
+          <span>HDMI</span><span>VGA Adapter</span><span>Display Config</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>Feb 2026</time>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="port-card" onclick="openModal('modal5')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#f953c6,#b91d73)">
-        <span>🔒</span>
+    <article class="port-card" onclick="openModal('modal5')" tabindex="0" role="button" aria-label="View Account Recovery details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #831843 0%, #db2777 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
       </div>
       <div class="port-body">
         <span class="port-cat">Security</span>
-        <h3>Account & Password Recovery</h3>
-        <p>Guided classmates through secure account recovery, multi-factor authentication setup, and safe password management.</p>
-        <div class="port-tags"><span>MFA</span><span>Password Mgmt</span><span>Security</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">Jan 2026</span>
+        <h3>Account &amp; Password Recovery</h3>
+        <p>Guided students through Google account recovery, enabled 2FA, and delivered a password hygiene session.</p>
+        <div class="port-tags">
+          <span>2FA</span><span>Password Mgmt</span><span>Security</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>Jan 2026</time>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="port-card" onclick="openModal('modal6')">
-      <div class="port-thumb" style="background: linear-gradient(135deg,#0cebeb,#20e3b2,#29ffc6)">
-        <span>📦</span>
+    <article class="port-card" onclick="openModal('modal6')" tabindex="0" role="button" aria-label="View Software Installation details">
+      <div class="port-banner" style="--banner: linear-gradient(135deg, #065f46 0%, #10b981 100%)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
       </div>
       <div class="port-body">
         <span class="port-cat">Software</span>
         <h3>Software Installation Lab</h3>
-        <p>Led a peer installation activity covering Office Suite, antivirus tools, and productivity apps with proper licensing checks.</p>
-        <div class="port-tags"><span>MS Office</span><span>Antivirus</span><span>Licensing</span></div>
-        <div class="port-meta">
-          <span class="competency-badge">⭐ Competency Achieved</span>
-          <span class="port-date">Dec 2025</span>
+        <p>Led class-wide installation of Office Suite, antivirus tools, and productivity apps with proper licensing verification.</p>
+        <div class="port-tags">
+          <span>MS Office</span><span>Antivirus</span><span>Licensing</span>
+        </div>
+        <div class="port-footer">
+          <span class="competency-badge">Competency Achieved</span>
+          <time>Dec 2025</time>
         </div>
       </div>
-    </div>
+    </article>
 
   </div>
 
-  <!-- Reflection Guide -->
   <div class="card">
-    <div class="card-header"><h2>Reflection Guide</h2><span class="card-tag">5-Step Framework</span></div>
-    <div class="reflection-steps">
-      <div class="ref-step"><div class="ref-num">01</div><div><strong>Learn</strong><p>What did I gain from this activity?</p></div></div>
-      <div class="ref-step"><div class="ref-num">02</div><div><strong>Challenge</strong><p>What problems did I encounter?</p></div></div>
-      <div class="ref-step"><div class="ref-num">03</div><div><strong>Solve</strong><p>How did I resolve the issue?</p></div></div>
-      <div class="ref-step"><div class="ref-num">04</div><div><strong>Grow</strong><p>Which skills improved?</p></div></div>
-      <div class="ref-step"><div class="ref-num">05</div><div><strong>Improve</strong><p>What would I do differently?</p></div></div>
+    <div class="card-header">
+      <h2>Learner Reflection Guide</h2>
+      <span class="card-tag">5-Step Framework</span>
+    </div>
+    <div class="ref-steps">
+      <div class="ref-step">
+        <div class="ref-num">01</div>
+        <div><strong>Learn</strong><p>What did I gain from this activity?</p></div>
+      </div>
+      <div class="ref-step">
+        <div class="ref-num">02</div>
+        <div><strong>Challenge</strong><p>What problems did I encounter?</p></div>
+      </div>
+      <div class="ref-step">
+        <div class="ref-num">03</div>
+        <div><strong>Solve</strong><p>How did I resolve the issue?</p></div>
+      </div>
+      <div class="ref-step">
+        <div class="ref-num">04</div>
+        <div><strong>Grow</strong><p>Which skills improved as a result?</p></div>
+      </div>
+      <div class="ref-step">
+        <div class="ref-num">05</div>
+        <div><strong>Improve</strong><p>What would I do differently next time?</p></div>
+      </div>
     </div>
   </div>
+
 </section>
 
-<!-- ───────────── STUDENT CARDS ───────────── -->
-<section id="students" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     STUDENTS
+───────────────────────────────────── -->
+<section id="students" class="section fade-in">
+
+  <div class="page-header">
     <h1>Student Portfolio Cards</h1>
-    <p>Individual performance profiles for all 15 learners</p>
+    <p>Individual performance profiles for all 15 enrolled learners</p>
   </div>
-  <div class="student-search-bar">
-    <input type="text" id="studentSearch" placeholder="🔍  Search student name…" oninput="filterStudents(this.value)">
+
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="studentSearch" placeholder="Search by name…" oninput="filterStudents(this.value)">
+    </div>
     <div class="filter-pills">
-      <button class="fpill active" onclick="filterGrade('all',this)">All</button>
-      <button class="fpill" onclick="filterGrade('A',this)">A Grade</button>
-      <button class="fpill" onclick="filterGrade('B',this)">B Grade</button>
-      <button class="fpill" onclick="filterGrade('C',this)">C Grade</button>
+      <button class="fpill active" onclick="filterGrade('all', this)">All</button>
+      <button class="fpill" onclick="filterGrade('excellent', this)">Excellent</button>
+      <button class="fpill" onclick="filterGrade('good', this)">Very Good &amp; Above Avg</button>
+      <button class="fpill" onclick="filterGrade('passing', this)">Passing</button>
+      <button class="fpill" onclick="filterGrade('conditional', this)">Conditional</button>
+      <button class="fpill" onclick="filterGrade('failed', this)">Failed</button>
     </div>
   </div>
-  <div class="student-grid" id="studentGrid">
-    <!-- JS rendered -->
-  </div>
+
+  <div class="student-grid" id="studentGrid"></div>
+
 </section>
 
-<!-- ───────────── GRADEBOOK ───────────── -->
-<section id="gradebook" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     GRADEBOOK
+───────────────────────────────────── -->
+<section id="gradebook" class="section fade-in">
+
+  <div class="page-header">
     <h1>Multi-Method Gradebook</h1>
-    <p>Scores, descriptors, and visual analytics for all 15 students</p>
+    <p>USTP grading system — numerical grades, verbal descriptors, averaging and cumulative methods for all 15 students</p>
+  </div>
+
+  <div class="engage-banner">
+    <div class="engage-banner-item">
+      <span class="engage-num" id="classAvgDisplay">83%</span>
+      <span class="engage-lbl">Class Average</span>
+    </div>
+    <div class="engage-banner-item">
+      <span class="engage-num" style="color:var(--green)">4</span>
+      <span class="engage-lbl">Excellent (1.00–1.75)</span>
+    </div>
+    <div class="engage-banner-item">
+      <span class="engage-num" style="color:var(--rose)">3</span>
+      <span class="engage-lbl">Needs Attention</span>
+    </div>
+    <div class="engage-banner-item">
+      <span class="engage-num" style="color:var(--blue)">2.00</span>
+      <span class="engage-lbl">Class Numerical Avg</span>
+    </div>
   </div>
 
   <div class="card">
-    <div class="card-header"><h2>Score Overview</h2><span class="card-tag">Bar Chart</span></div>
+    <div class="card-header">
+      <h2>USTP Grading Scale &amp; Verbal Descriptors</h2>
+      <span class="card-tag">University Standard</span>
+    </div>
+    <p class="card-intro">The table below shows the official grading scale used to convert raw scores into letter grades, percentage equivalents, and verbal descriptors.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>% Equivalent</th>
+            <th>Numerical Value</th>
+            <th>Description</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>97 – 100</td><td><span class="grade-pill grade-excellent">1.00</span></td><td>Excellent</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>94 – 96</td><td><span class="grade-pill grade-excellent">1.25</span></td><td>Excellent</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>91 – 93</td><td><span class="grade-pill grade-excellent">1.50</span></td><td>Very Good</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>88 – 90</td><td><span class="grade-pill grade-excellent">1.75</span></td><td>Very Good</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>85 – 87</td><td><span class="grade-pill grade-good">2.00</span></td><td>Above Average</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>82 – 84</td><td><span class="grade-pill grade-good">2.25</span></td><td>Above Average</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>79 – 81</td><td><span class="grade-pill grade-good">2.50</span></td><td>Average</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>76 – 78</td><td><span class="grade-pill grade-good">2.75</span></td><td>Average</td><td style="color:var(--green);font-weight:600">Passed</td></tr>
+          <tr><td>75</td><td><span class="grade-pill grade-passing">3.00</span></td><td>Passing</td><td style="color:var(--teal);font-weight:600">Passed</td></tr>
+          <tr><td>72 – 74</td><td><span class="grade-pill grade-conditional">3.25</span></td><td>Conditional</td><td style="color:var(--amber);font-weight:600">Conditional</td></tr>
+          <tr><td>69 – 71</td><td><span class="grade-pill grade-conditional">3.50</span></td><td>Conditional</td><td style="color:var(--amber);font-weight:600">Conditional</td></tr>
+          <tr><td>66 – 68</td><td><span class="grade-pill grade-failed">3.75</span></td><td>Failed</td><td style="color:var(--rose);font-weight:600">Failed</td></tr>
+          <tr><td>65</td><td><span class="grade-pill grade-failed">4.00</span></td><td>Failed</td><td style="color:var(--rose);font-weight:600">Failed</td></tr>
+          <tr><td>64 and below</td><td><span class="grade-pill grade-failed">5.00</span></td><td>Failed</td><td style="color:var(--rose);font-weight:600">Failed</td></tr>
+          <tr><td>—</td><td><span class="grade-pill grade-conditional">INC</span></td><td>Incomplete</td><td style="color:var(--amber);font-weight:600">Incomplete</td></tr>
+          <tr><td>—</td><td><span class="grade-pill grade-failed">D/F</span></td><td>Dropped with Failure</td><td style="color:var(--rose);font-weight:600">Failed</td></tr>
+          <tr><td>—</td><td><span class="grade-pill grade-good">W</span></td><td>Withdrawn</td><td style="color:var(--text-muted);font-weight:600">Withdrawn</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Score Overview</h2>
+      <span class="card-tag">All 15 Students</span>
+    </div>
     <canvas id="scoreChart" height="140"></canvas>
   </div>
 
   <div class="card">
     <div class="card-header">
       <h2>Grade Table</h2>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input type="text" id="gradeSearch" placeholder="Search…" style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-family:inherit;font-size:0.85rem;background:var(--bg-card);color:var(--text)" oninput="filterTable(this.value)">
-        <button class="btn-sm" onclick="sortTable()">⇅ Sort</button>
+      <div class="card-header-controls">
+        <div class="search-wrap search-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="gradeSearch" placeholder="Search…" oninput="filterTable(this.value)">
+        </div>
+        <button class="btn-outline" onclick="sortTable()">Sort by Score</button>
       </div>
     </div>
     <div class="table-wrap">
-      <table id="gradeTable">
+      <table>
         <thead>
           <tr>
-            <th>#</th><th>Student</th><th>Raw Score</th><th>Grade</th><th>Performance</th><th>Descriptor</th>
+            <th>Rank</th>
+            <th>Student</th>
+            <th>% Score</th>
+            <th>Numerical Grade</th>
+            <th>Descriptor</th>
+            <th>Performance</th>
+            <th>Remarks</th>
           </tr>
         </thead>
-        <tbody id="gradeBody"><!-- JS --></tbody>
+        <tbody id="gradeBody"></tbody>
       </table>
     </div>
   </div>
 
-  <!-- Cumulative Method -->
   <div class="card">
     <div class="card-header">
-      <h2>Cumulative Grading Method</h2>
+      <h2>Cumulative vs. Averaging Method</h2>
       <span class="card-tag">Component Breakdown</span>
     </div>
-    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;line-height:1.7">
-      The <strong>Cumulative Method</strong> weights each component:
-      <strong>Quizzes 25%</strong> · <strong>Activity/Performance 35%</strong> · <strong>Long Exam 25%</strong> · <strong>Participation 15%</strong>.
-      Compared below with the <strong>Averaging Method</strong> (simple unweighted mean).
-    </p>
+    <p class="card-intro">The <strong>Cumulative Method</strong> applies weighted components: Quizzes 25% · Activity/Performance 35% · Long Exam 25% · Participation 15%. Compared below against the <strong>Averaging Method</strong> (simple unweighted mean of all four components).</p>
     <div class="table-wrap">
       <table id="cumulTable">
         <thead>
           <tr>
             <th>Student</th>
-            <th>Quiz <small style="opacity:.7">(25%)</small></th>
-            <th>Activity <small style="opacity:.7">(35%)</small></th>
-            <th>Long Exam <small style="opacity:.7">(25%)</small></th>
-            <th>Participation <small style="opacity:.7">(15%)</small></th>
-            <th>Cumulative</th>
-            <th>Averaging</th>
-            <th>Diff</th>
+            <th>Quiz (25%)</th>
+            <th>Activity (35%)</th>
+            <th>Long Exam (25%)</th>
+            <th>Participation (15%)</th>
+            <th>Cumulative %</th>
+            <th>Numerical</th>
+            <th>Average %</th>
+            <th>Numerical</th>
+            <th>Difference</th>
           </tr>
         </thead>
         <tbody id="cumulBody"></tbody>
       </table>
     </div>
-    <p style="color:var(--text-muted);font-size:0.76rem;margin-top:10px">* Averaging = simple mean of the four component raw scores (unweighted).</p>
+    <p class="table-note">* Averaging Method = simple mean of the four component raw scores (unweighted).</p>
   </div>
 
-  <div class="dash-row">
+  <div class="two-col">
     <div class="card">
-      <div class="card-header"><h2>Score Scatter</h2><span class="card-tag">Distribution</span></div>
+      <div class="card-header">
+        <h2>Score Distribution</h2>
+        <span class="card-tag">Scatter Plot</span>
+      </div>
       <canvas id="scatterChart" height="200"></canvas>
     </div>
     <div class="card">
-      <div class="card-header"><h2>Grade Breakdown</h2><span class="card-tag">By Letter</span></div>
+      <div class="card-header">
+        <h2>Grade Breakdown</h2>
+        <span class="card-tag">By Letter Grade</span>
+      </div>
       <canvas id="gradeBarChart" height="200"></canvas>
     </div>
   </div>
+
 </section>
 
-<!-- ───────────── TOOLKIT ───────────── -->
-<section id="toolkit" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     TOOLKIT
+───────────────────────────────────── -->
+<section id="toolkit" class="section fade-in">
+
+  <div class="page-header">
     <h1>Parent Communication Toolkit</h1>
-    <p>Send progress updates and generate reports</p>
+    <p>Message templates, narrative reports, conference agenda, and report card generation</p>
   </div>
 
-  <div class="dash-row">
+  <div class="tip-card">
+    <div class="tip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <div>
+      <strong>Communication Tip</strong>
+      <p>Research shows that regular parent communication improves student performance by up to 20%. Use the tools below to keep parents informed, engaged, and supportive of their child's learning journey.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+
     <div class="card">
-      <div class="card-header"><h2>Message Composer</h2><span class="card-tag">Live Preview</span></div>
+      <div class="card-header">
+        <h2>Message Composer</h2>
+        <span class="card-tag">Live Preview</span>
+      </div>
       <div class="form-group">
-        <label>Parent / Guardian Name</label>
+        <label for="parentName">Parent / Guardian Name</label>
         <input type="text" id="parentName" placeholder="e.g. Mrs. Santos">
       </div>
       <div class="form-group">
-        <label>Student Name</label>
+        <label for="studentSelect">Student</label>
         <select id="studentSelect">
-          <option value="">— Choose student —</option>
+          <option value="">— Select a student —</option>
         </select>
       </div>
       <div class="form-group">
         <label>Message Template</label>
-        <div class="template-pills">
-          <button class="tpill" onclick="useTemplate('progress')">📈 Progress Update</button>
-          <button class="tpill" onclick="useTemplate('concern')">⚠️ Area of Concern</button>
-          <button class="tpill" onclick="useTemplate('praise')">🌟 Achievement Notice</button>
-          <button class="tpill" onclick="useTemplate('conference')">📅 Conference Invite</button>
+        <div class="pill-group">
+          <button class="pill" onclick="useTemplate('progress')">Progress Update</button>
+          <button class="pill" onclick="useTemplate('concern')">Area of Concern</button>
+          <button class="pill" onclick="useTemplate('praise')">Achievement Notice</button>
+          <button class="pill" onclick="useTemplate('conference')">Conference Invite</button>
         </div>
       </div>
       <div class="form-group">
-        <label>Message Body</label>
-        <textarea id="message" rows="6" placeholder="Type your message or use a template above…"></textarea>
+        <label for="message">Message Body</label>
+        <textarea id="message" rows="6" placeholder="Type your message or select a template above…"></textarea>
       </div>
-      <button class="btn" onclick="sendMessage()">📤 Send Message</button>
-      <div id="confirmation" class="confirm-msg"></div>
+      <button class="btn-primary" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        Send Message
+      </button>
+      <div id="confirmation" class="confirm-msg" role="status"></div>
     </div>
 
     <div class="card">
-      <div class="card-header"><h2>Live Message Preview</h2></div>
-      <div class="letter-preview" id="letterPreview">
-        <div class="letter-header">
-          <strong>BTLED ICT — EDU 222</strong><br>
+      <div class="card-header">
+        <h2>Live Preview</h2>
+      </div>
+      <div class="letter-preview">
+        <div class="letter-head">
+          <strong>BTLEd ICT &mdash; EDU 222</strong>
           <span id="previewDate"></span>
         </div>
         <div class="letter-body">
-          <p>Dear <span id="prevParent" class="preview-fill">Parent/Guardian</span>,</p>
-          <p id="prevMsg" class="preview-fill">Your message will appear here as you type.</p>
-          <p>Sincerely,<br><strong>Teacher Awitin</strong><br><em>BTLEd ICT Instructor</em></p>
+          <p>Dear <span id="prevParent" class="preview-hl">Parent / Guardian</span>,</p>
+          <p id="prevMsg" class="preview-hl">Your message will appear here as you type.</p>
+          <p>Sincerely,<br><strong>Teacher Axel jess C. Awitin</strong><br><em>BTLEd ICT Instructor</em></p>
         </div>
       </div>
     </div>
+
   </div>
 
-  <!-- Narrative Report -->
   <div class="card">
-    <div class="card-header"><h2>Narrative Report Generator</h2><span class="card-tag">Communication Packet</span></div>
-    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;line-height:1.7">A <strong>Narrative Report</strong> is a written paragraph communicating a student&#39;s holistic performance beyond numbers. Select a student to auto-generate a personalized report, or edit it freely.</p>
-    <div class="dash-row" style="margin-bottom:0">
+    <div class="card-header">
+      <h2>Narrative Report Generator</h2>
+      <span class="card-tag">Communication Packet</span>
+    </div>
+    <p class="card-intro">A <strong>Narrative Report</strong> communicates a student's holistic performance in paragraph form — beyond raw numbers. Select a student to auto-generate a personalized report based on their actual assessment data.</p>
+    <div class="two-col" style="margin-bottom: 0">
       <div>
         <div class="form-group">
-          <label>Select Student</label>
+          <label for="narrativeStudent">Student</label>
           <select id="narrativeStudent" onchange="generateNarrative()">
-            <option value="">&#8212; Choose student &#8212;</option>
+            <option value="">— Select a student —</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Grading Period</label>
+          <label for="narrativePeriod">Grading Period</label>
           <select id="narrativePeriod">
             <option>1st Grading Period</option>
             <option selected>2nd Grading Period</option>
@@ -433,27 +762,28 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Tone</label>
-          <div class="template-pills">
-            <button class="tpill active-t" onclick="setNarrativeTone(&#39;formal&#39;,this)">&#128203; Formal</button>
-            <button class="tpill" onclick="setNarrativeTone(&#39;warm&#39;,this)">&#128155; Warm</button>
-            <button class="tpill" onclick="setNarrativeTone(&#39;concern&#39;,this)">&#9888;&#65039; Needs Support</button>
+          <label>Report Tone</label>
+          <div class="pill-group">
+            <button class="pill pill-active" onclick="setNarrativeTone('formal', this)">Formal</button>
+            <button class="pill" onclick="setNarrativeTone('warm', this)">Warm</button>
+            <button class="pill" onclick="setNarrativeTone('concern', this)">Needs Support</button>
           </div>
         </div>
-        <button class="btn" style="margin-bottom:10px" onclick="generateNarrative()">&#9997;&#65039; Generate Report</button>
-        &nbsp;
-        <button class="btn" style="background:var(--bg);color:var(--text);border:1.5px solid var(--border);box-shadow:none;margin-top:8px" onclick="downloadNarrative()">&#11015; Download</button>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="generateNarrative()">Generate Report</button>
+          <button class="btn-outline" onclick="downloadNarrative()">Download</button>
+        </div>
       </div>
       <div>
-        <label style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px">Report Preview</label>
-        <div class="narrative-preview" id="narrativePreview">
-          <div class="narrative-header">
-            <strong>NARRATIVE REPORT &#8212; BTLEd ICT (EDU 222)</strong><br>
-            <span id="narrativePeriodDisplay">2nd Grading Period &middot; A.Y. 2025&#8211;2026</span>
+        <label class="field-label">Report Preview</label>
+        <div class="narrative-preview">
+          <div class="narrative-head">
+            <strong>NARRATIVE REPORT &mdash; BTLEd ICT (EDU 222)</strong>
+            <span id="narrativePeriodDisplay">2nd Grading Period &middot; A.Y. 2025&ndash;2026</span>
           </div>
-          <div id="narrativeBody" style="color:var(--text-muted);font-style:italic;font-size:0.85rem">Select a student and click Generate to preview the report.</div>
-          <div class="narrative-footer">
-            Prepared by: <strong>Teacher Awitin</strong> &middot; BTLEd ICT Instructor<br>
+          <div id="narrativeBody" class="narrative-body-placeholder">Select a student and click Generate to preview the report.</div>
+          <div class="narrative-foot">
+            Prepared by: <strong>Teacher Axel jess C. Awitin</strong> &middot; BTLEd ICT Instructor<br>
             Date: <span id="narrativeDate"></span>
           </div>
         </div>
@@ -461,202 +791,464 @@
     </div>
   </div>
 
-  <div class="dash-row">
+  <div class="two-col">
+
     <div class="card">
-      <div class="card-header"><h2>Conference Agenda</h2><span class="card-tag">Checklist</span></div>
-      <div class="agenda-list">
-        <label class="agenda-item"><input type="checkbox" checked> <span>Review academic performance & grades</span></label>
-        <label class="agenda-item"><input type="checkbox" checked> <span>Discuss classroom participation & behavior</span></label>
-        <label class="agenda-item"><input type="checkbox"> <span>Highlight student strengths</span></label>
-        <label class="agenda-item"><input type="checkbox"> <span>Identify areas for improvement</span></label>
-        <label class="agenda-item"><input type="checkbox"> <span>Action plan for next grading period</span></label>
-        <label class="agenda-item"><input type="checkbox"> <span>Collect parent suggestions & feedback</span></label>
-        <label class="agenda-item"><input type="checkbox"> <span>Set follow-up schedule</span></label>
+      <div class="card-header">
+        <h2>Conference Agenda</h2>
+        <span class="card-tag">Checklist</span>
       </div>
+      <ul class="agenda-list" role="list">
+        <li class="agenda-item"><label><input type="checkbox" checked><span>Review academic performance and grades</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox" checked><span>Discuss classroom participation and behavior</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox"><span>Highlight student strengths and achievements</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox"><span>Identify specific areas requiring improvement</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox"><span>Develop action plan for next grading period</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox"><span>Collect parent suggestions and feedback</span></label></li>
+        <li class="agenda-item"><label><input type="checkbox"><span>Set follow-up schedule and contact details</span></label></li>
+      </ul>
     </div>
+
     <div class="card">
-      <div class="card-header"><h2>Generate Report Card</h2></div>
-      <p style="color:var(--text-muted);margin-bottom:16px">Download a formatted report card for all 15 students.</p>
+      <div class="card-header">
+        <h2>Report Card Generator</h2>
+      </div>
+      <p class="card-intro">Download a formatted report card for one or all students.</p>
       <div class="form-group">
-        <label>Select Student</label>
+        <label for="reportStudent">Student</label>
         <select id="reportStudent">
           <option value="all">All Students</option>
         </select>
       </div>
       <div class="form-group">
         <label>Format</label>
-        <div class="template-pills">
-          <button class="tpill active-t" onclick="setFormat('txt',this)">📄 TXT</button>
-          <button class="tpill" onclick="setFormat('csv',this)">📊 CSV</button>
+        <div class="pill-group">
+          <button class="pill pill-active" onclick="setFormat('txt', this)">Plain Text</button>
+          <button class="pill" onclick="setFormat('csv', this)">CSV</button>
         </div>
       </div>
-      <button class="btn" onclick="downloadReport()">⬇ Download Report Card</button>
+      <button class="btn-primary" onclick="downloadReport()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download Report Card
+      </button>
     </div>
+
   </div>
+
 </section>
 
-<!-- ───────────── REFLECTION ───────────── -->
-<section id="reflection" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     REFLECTION
+───────────────────────────────────── -->
+<section id="reflection" class="section fade-in">
+
+  <div class="page-header">
     <h1>Reflective Practice Dashboard</h1>
-    <p>Data-linked teaching adjustment plan and self-assessment</p>
+    <p>Data-linked teaching adjustment plan and personal reflective log</p>
   </div>
 
-  <!-- Teaching Adjustment Plan -->
+  <blockquote class="reflection-quote">
+    "The goal of education is not to fill a bucket but to light a fire." — William Butler Yeats
+  </blockquote>
+
   <div class="card">
-    <div class="card-header"><h2>Teaching Adjustment Plan</h2><span class="card-tag">Data-Driven</span></div>
-    <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:18px;line-height:1.7">
-      Based on the 15-student assessment data from this grading period, the following adjustments are proposed for the <strong>next semester</strong>. Each strategy is directly justified by specific learner attainment data.
-    </p>
+    <div class="card-header">
+      <h2>Teaching Adjustment Plan</h2>
+      <span class="card-tag">Data-Driven</span>
+    </div>
+    <p class="card-intro">Based on the 15-student assessment data from this grading period, the following adjustments are proposed for the next semester. Each strategy is directly justified by specific learner attainment data.</p>
 
-    <div class="tap-section">
-      <div class="tap-header">
-        <div class="tap-icon" style="background:rgba(245,87,108,0.1);color:#f5576c">⚠️</div>
-        <div>
-          <h4>Finding 1: Three Students Below 75 — Critical Intervention Needed</h4>
-          <span class="tap-data-tag">Students: Felix (67%), Jack (70%), Cara (72%)</span>
+    <div class="tap-item">
+      <div class="tap-marker" style="background: var(--rose)"></div>
+      <div class="tap-content">
+        <div class="tap-head">
+          <h4>Finding 1 — Three Students Below 75%: Critical Intervention Required</h4>
+          <span class="data-tag">Felix (67%) · Jack (70%) · Cara (72%)</span>
         </div>
-      </div>
-      <div class="tap-body">
-        <p><strong>Data Interpretation:</strong> Felix, Jack, and Cara scored below the passing threshold of 75%. Their performance descriptors ("Needs support," "Needs troubleshooting practice," "Needs improvement") indicate difficulty with both conceptual understanding and hands-on application.</p>
-        <p><strong>Teaching Adjustment:</strong> Implement a <em>tiered remediation programme</em> at the start of the next semester. These three students will be paired with high-performing peers (Mia, Ben, Iris) for weekly co-troubleshooting lab sessions. Additionally, simplified diagnostic checklists will be introduced to reduce cognitive load during hardware tasks.</p>
-        <div class="tap-strategy-pill">📌 Peer Mentoring + Scaffolded Checklists</div>
+        <p><strong>Data Interpretation:</strong> Felix, Jack, and Cara scored below the passing threshold. Their descriptors indicate difficulty with both conceptual understanding and hands-on application.</p>
+        <p><strong>Teaching Adjustment:</strong> Implement a tiered remediation programme. These students will be paired with high-performing peers (Mia, Ben, Iris) for weekly co-troubleshooting lab sessions, supported by simplified diagnostic checklists to reduce cognitive load.</p>
+        <span class="strategy-tag">Peer Mentoring + Scaffolded Checklists</span>
       </div>
     </div>
 
-    <div class="tap-section">
-      <div class="tap-header">
-        <div class="tap-icon" style="background:rgba(255,209,102,0.15);color:#c07800">📊</div>
-        <div>
-          <h4>Finding 2: Five C-Range Students Clustered at 70–79%</h4>
-          <span class="tap-data-tag">Students: Hugo (76%), Liam (78%), Noah (74%), Jack (70%), Cara (72%)</span>
+    <div class="tap-item">
+      <div class="tap-marker" style="background: var(--amber)"></div>
+      <div class="tap-content">
+        <div class="tap-head">
+          <h4>Finding 2 — Five Students Clustered in the C Range (70–79%)</h4>
+          <span class="data-tag">Hugo (76%) · Liam (78%) · Noah (74%) · Jack (70%) · Cara (72%)</span>
         </div>
-      </div>
-      <div class="tap-body">
-        <p><strong>Data Interpretation:</strong> A cluster of five students sit in the C range. Their descriptors ("Average performance," "Needs reflection," "Needs consistency") suggest inconsistent effort and limited metacognitive awareness rather than a lack of capability.</p>
-        <p><strong>Teaching Adjustment:</strong> Introduce <em>weekly reflective journals</em> where students self-assess their own ICT task performance against a rubric. This builds metacognition and accountability. Additionally, low-stakes formative quizzes every two weeks will provide early feedback before summative assessments.</p>
-        <div class="tap-strategy-pill">📌 Reflective Journals + Formative Quizzes</div>
+        <p><strong>Data Interpretation:</strong> Descriptors such as "Needs reflection" and "Needs consistency" suggest inconsistent effort and limited metacognitive awareness, rather than a lack of fundamental capability.</p>
+        <p><strong>Teaching Adjustment:</strong> Introduce weekly reflective journals where students self-assess against a rubric, and implement fortnightly low-stakes formative quizzes to provide early feedback before summative assessments.</p>
+        <span class="strategy-tag">Reflective Journals + Formative Quizzes</span>
       </div>
     </div>
 
-    <div class="tap-section">
-      <div class="tap-header">
-        <div class="tap-icon" style="background:rgba(67,233,123,0.12);color:#14a054">🏆</div>
-        <div>
-          <h4>Finding 3: Four A-Range Students — Sustain and Extend Excellence</h4>
-          <span class="tap-data-tag">Students: Mia (96%), Ben (95%), Iris (92%), Ella (90%)</span>
+    <div class="tap-item">
+      <div class="tap-marker" style="background: var(--green)"></div>
+      <div class="tap-content">
+        <div class="tap-head">
+          <h4>Finding 3 — Four A-Range Students: Sustain and Extend Excellence</h4>
+          <span class="data-tag">Mia (96%) · Ben (95%) · Iris (92%) · Ella (90%)</span>
         </div>
-      </div>
-      <div class="tap-body">
-        <p><strong>Data Interpretation:</strong> Four students consistently achieved A-range scores with descriptors like "Outstanding initiative" and "Excellent technical skills." These learners are at risk of disengagement if the curriculum does not challenge them further.</p>
-        <p><strong>Teaching Adjustment:</strong> Provide <em>extension tasks</em> — such as leading mini-demonstrations, preparing how-to guides for classmates, or tackling advanced ICT scenarios (e.g., network security simulations). This sustains their engagement while benefiting the whole class through peer teaching.</p>
-        <div class="tap-strategy-pill">📌 Extension Tasks + Peer Teaching Roles</div>
+        <p><strong>Data Interpretation:</strong> Four students achieved A-range results with descriptors like "Outstanding initiative" and "Excellent technical skills." These learners risk disengagement without additional academic challenge.</p>
+        <p><strong>Teaching Adjustment:</strong> Provide extension tasks including leading mini-demonstrations and preparing peer tutorial guides. Advanced ICT scenarios (e.g., network security simulations) will be added to maintain engagement.</p>
+        <span class="strategy-tag">Extension Tasks + Peer Teaching Roles</span>
       </div>
     </div>
 
-    <div class="tap-section">
-      <div class="tap-header">
-        <div class="tap-icon" style="background:rgba(79,172,254,0.12);color:#2a7ccf">📈</div>
-        <div>
-          <h4>Finding 4: Network Configuration Scored Lowest (76% Class Avg)</h4>
-          <span class="tap-data-tag">ICT Competency Area: Networking — lowest among all 6 areas</span>
+    <div class="tap-item">
+      <div class="tap-marker" style="background: var(--blue)"></div>
+      <div class="tap-content">
+        <div class="tap-head">
+          <h4>Finding 4 — Network Configuration Is the Lowest-Scoring Competency (76%)</h4>
+          <span class="data-tag">ICT Area: Networking — lowest class average of all 6 competencies</span>
         </div>
-      </div>
-      <div class="tap-body">
-        <p><strong>Data Interpretation:</strong> Among all six ICT competency areas tracked, Network Configuration had the lowest class average at 76%. This suggests the current instructional approach for networking topics is insufficient — likely due to limited hands-on lab time and abstract delivery.</p>
-        <p><strong>Teaching Adjustment:</strong> Redesign the networking unit to include a <em>dedicated Lab Immersion Week</em> with simulation tools (e.g., Cisco Packet Tracer). Activities will require students to physically configure routers, assign IP addresses, and troubleshoot connectivity — moving from lecture-based to fully experiential learning.</p>
-        <div class="tap-strategy-pill">📌 Lab Immersion Week + Packet Tracer Simulations</div>
+        <p><strong>Data Interpretation:</strong> Network Configuration scored the lowest among all six tracked competency areas, suggesting the current instructional approach — primarily lecture-based — is insufficient for this topic.</p>
+        <p><strong>Teaching Adjustment:</strong> Redesign the networking unit around a dedicated Lab Immersion Week using Cisco Packet Tracer simulations. Students will physically configure routers, assign IP addresses, and troubleshoot connectivity.</p>
+        <span class="strategy-tag">Lab Immersion Week + Packet Tracer Simulations</span>
       </div>
     </div>
 
-    <div class="tap-section">
-      <div class="tap-header">
-        <div class="tap-icon" style="background:rgba(240,147,251,0.12);color:#a021c9">🎯</div>
-        <div>
-          <h4>Finding 5: Assessment Method Lacks Variety</h4>
-          <span class="tap-data-tag">Non-test Data: Participation observations and portfolio entries</span>
+    <div class="tap-item">
+      <div class="tap-marker" style="background: var(--purple)"></div>
+      <div class="tap-content">
+        <div class="tap-head">
+          <h4>Finding 5 — Assessment Methods Lack Variety for Practical Learners</h4>
+          <span class="data-tag">Non-test Data: Participation observations and portfolio entries</span>
         </div>
-      </div>
-      <div class="tap-body">
-        <p><strong>Data Interpretation:</strong> Several strong performers in practical labs (e.g., Grace — "Good participation") scored lower on written assessments. This indicates the current grading system may not fully capture practical ICT competence, disadvantaging hands-on learners.</p>
-        <p><strong>Teaching Adjustment:</strong> Shift toward <em>differentiated assessment</em> by increasing the weight of performance tasks and portfolio evidence in the final grade computation. Introduce rubric-based practical assessments for every major lab activity so that hands-on skills are formally credited alongside written tests.</p>
-        <div class="tap-strategy-pill">📌 Differentiated Assessment + Weighted Practical Tasks</div>
+        <p><strong>Data Interpretation:</strong> Students who excel in lab work (e.g., Grace — "Good participation") scored lower on written assessments, indicating the grading system does not fully capture hands-on ICT competence.</p>
+        <p><strong>Teaching Adjustment:</strong> Shift toward differentiated assessment by increasing the weight of performance tasks and portfolio evidence. Rubric-based practical assessments will be introduced for every major lab activity.</p>
+        <span class="strategy-tag">Differentiated Assessment + Weighted Practical Tasks</span>
       </div>
     </div>
+
   </div>
 
-  <!-- Strategy Summary -->
   <div class="card">
-    <div class="card-header"><h2>Strategy Overview</h2><span class="card-tag">Next Semester</span></div>
+    <div class="card-header">
+      <h2>Strategy Overview</h2>
+      <span class="card-tag">Next Semester</span>
+    </div>
     <div class="strategy-grid">
-      <div class="strategy-card str1">
-        <div class="str-icon">🤝</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--blue)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
         <h4>Peer Mentoring</h4>
         <p>High-performing students paired with those below 75% for weekly co-troubleshooting labs.</p>
-        <div class="str-tag">For: Felix, Jack, Cara</div>
+        <span class="strategy-tag-sm">For: Felix, Jack, Cara</span>
       </div>
-      <div class="strategy-card str2">
-        <div class="str-icon">🔧</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--green)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
         <h4>Scaffolded Checklists</h4>
-        <p>Step-by-step diagnostic checklists to reduce cognitive load during hardware and software tasks.</p>
-        <div class="str-tag">For: C &amp; D Range Students</div>
+        <p>Step-by-step diagnostic checklists to reduce cognitive load during hardware tasks.</p>
+        <span class="strategy-tag-sm">For: C &amp; D Range</span>
       </div>
-      <div class="strategy-card str3">
-        <div class="str-icon">🪞</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--purple)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
         <h4>Reflective Journals</h4>
-        <p>Weekly self-assessment against a rubric builds metacognition and personal accountability.</p>
-        <div class="str-tag">For: C Range Cluster</div>
+        <p>Weekly self-assessment against a rubric to build metacognition and accountability.</p>
+        <span class="strategy-tag-sm">For: C Range Cluster</span>
       </div>
-      <div class="strategy-card str4">
-        <div class="str-icon">🧪</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--teal)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
         <h4>Lab Immersion Week</h4>
-        <p>Dedicated networking week using Packet Tracer simulations for experiential learning.</p>
-        <div class="str-tag">For: Whole Class</div>
+        <p>Dedicated networking week with Cisco Packet Tracer for experiential learning.</p>
+        <span class="strategy-tag-sm">For: Whole Class</span>
       </div>
-      <div class="strategy-card str5">
-        <div class="str-icon">⭐</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--amber)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
         <h4>Extension Tasks</h4>
-        <p>Advanced scenarios and peer-teaching roles for A-range students to sustain engagement.</p>
-        <div class="str-tag">For: Mia, Ben, Iris, Ella</div>
+        <p>Advanced scenarios and peer-teaching roles for A-range students.</p>
+        <span class="strategy-tag-sm">For: Mia, Ben, Iris, Ella</span>
       </div>
-      <div class="strategy-card str6">
-        <div class="str-icon">🎯</div>
+      <div class="strategy-card">
+        <div class="strategy-icon" style="color: var(--rose)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
         <h4>Differentiated Assessment</h4>
-        <p>Increase weighting of practical/portfolio tasks to better capture hands-on ICT competence.</p>
-        <div class="str-tag">For: All Students</div>
+        <p>Increase weighting of practical and portfolio tasks to capture hands-on ICT competence.</p>
+        <span class="strategy-tag-sm">For: All Students</span>
       </div>
     </div>
   </div>
 
-  <!-- Personal Log -->
   <div class="card">
-    <div class="card-header"><h2>My Reflective Log</h2><span class="card-tag">Personal</span></div>
+    <div class="card-header">
+      <h2>Personal Reflective Log</h2>
+      <span class="card-tag">Private</span>
+    </div>
     <div class="form-group">
-      <label>Teaching Date / Activity</label>
+      <label for="refTitle">Teaching Activity / Date</label>
       <input type="text" id="refTitle" placeholder="e.g. Hardware Lab — May 8, 2026">
     </div>
     <div class="form-group">
-      <label>Reflection Entry</label>
-      <textarea id="refEntry" rows="5" placeholder="What worked? What didn't? What will I change?"></textarea>
+      <label for="refEntry">Reflection Entry</label>
+      <textarea id="refEntry" rows="5" placeholder="What worked well? What could be improved? What will I change next time?"></textarea>
     </div>
-    <button class="btn" onclick="saveReflection()">💾 Save Entry</button>
-    <div id="refLog" class="ref-log"></div>
+    <button class="btn-primary" onclick="saveReflection()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+      </svg>
+      Save Entry
+    </button>
+    <div id="refLog" class="ref-log" aria-live="polite"></div>
   </div>
+
 </section>
 
-<!-- ───────────── ABOUT ───────────── -->
-<section id="about" class="fade-in">
-  <div class="page-title">
+<!-- ─────────────────────────────────────
+     RUBRIC
+───────────────────────────────────── -->
+<section id="rubric" class="section fade-in">
+
+  <div class="page-header">
+    <h1>Assessment Rubric</h1>
+    <p>EDU 222 Final Performance Innovative Task — official scoring criteria and descriptors</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Self-Assessment Score</h2>
+      <span class="card-tag">Estimated Performance</span>
+    </div>
+    <div class="rubric-score-row">
+      <div class="rubric-score-item">
+        <div class="rubric-score-num" style="color:var(--blue)">15</div>
+        <div class="rubric-score-label">Authenticity &amp; Task Design</div>
+        <div class="rubric-score-max">/ 15</div>
+      </div>
+      <div class="rubric-score-item">
+        <div class="rubric-score-num" style="color:var(--green)">14</div>
+        <div class="rubric-score-label">Grading System Integration</div>
+        <div class="rubric-score-max">/ 15</div>
+      </div>
+      <div class="rubric-score-item">
+        <div class="rubric-score-num" style="color:var(--purple)">14</div>
+        <div class="rubric-score-label">Communication &amp; Reporting</div>
+        <div class="rubric-score-max">/ 15</div>
+      </div>
+      <div class="rubric-score-item">
+        <div class="rubric-score-num" style="color:var(--amber)">14</div>
+        <div class="rubric-score-label">Data-Driven Reflection</div>
+        <div class="rubric-score-max">/ 15</div>
+      </div>
+      <div class="rubric-score-item">
+        <div class="rubric-score-num" style="color:var(--teal)">15</div>
+        <div class="rubric-score-label">Ethical Integrity</div>
+        <div class="rubric-score-max">/ 15</div>
+      </div>
+      <div class="rubric-score-item rubric-total">
+        <div class="rubric-score-num" style="color:var(--text)">72</div>
+        <div class="rubric-score-label">Estimated Total</div>
+        <div class="rubric-score-max">/ 75</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Rubric Criteria</h2>
+      <span class="card-tag">EDU 222 Official</span>
+    </div>
+    <p class="card-intro">This rubric follows the weightings and criteria established in the course syllabus for performance-based assessments. Each criterion is scored on a 15-point scale.</p>
+    <div class="table-wrap">
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th style="width:18%">Criterion</th>
+            <th style="width:22%">Excellent (13–15 pts)</th>
+            <th style="width:22%">Good (10–12 pts)</th>
+            <th style="width:22%">Fair (6–9 pts)</th>
+            <th style="width:16%">Poor (0–5 pts)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Authenticity &amp; Task Design</strong></td>
+            <td class="rubric-excellent">Highly authentic to a BTLEd classroom; tasks are clear, measurable, and realistic.</td>
+            <td class="rubric-good">Mostly authentic with minor clarity issues in the indicators.</td>
+            <td class="rubric-fair">Lacks specificity or fails to reflect real-world classroom needs.</td>
+            <td class="rubric-poor">Poorly designed; not feasible for classroom use.</td>
+          </tr>
+          <tr>
+            <td><strong>Grading System Integration</strong></td>
+            <td class="rubric-excellent">Demonstrates mastery of letter, percentage, and narrative grading systems.</td>
+            <td class="rubric-good">Accurately uses most grading methods with minor errors in cumulative calculation.</td>
+            <td class="rubric-fair">Demonstrates understanding of only one grading format; lacks variety.</td>
+            <td class="rubric-poor">Inaccurate calculations; fails to follow the university grading system.</td>
+          </tr>
+          <tr>
+            <td><strong>Communication &amp; Reporting</strong></td>
+            <td class="rubric-excellent">Materials are punctual, accurate, and professional; manages interpersonal dynamics effectively.</td>
+            <td class="rubric-good">Materials are clear and accurate but lack a variety of communication channels.</td>
+            <td class="rubric-fair">Narrative reports are vague or fail to articulate learner needs clearly.</td>
+            <td class="rubric-poor">Absent or ineffective communication materials.</td>
+          </tr>
+          <tr>
+            <td><strong>Data-Driven Reflection</strong></td>
+            <td class="rubric-excellent">Deep synthesis of test and non-test data; logical, well-justified teaching plan.</td>
+            <td class="rubric-good">Reasonable synthesis of data with some identified implications for practice.</td>
+            <td class="rubric-fair">Descriptive only; fails to link learner attainment data to specific teaching changes.</td>
+            <td class="rubric-poor">Minimal reflection or failure to interpret the provided attainment data.</td>
+          </tr>
+          <tr>
+            <td><strong>Ethical Integrity</strong></td>
+            <td class="rubric-excellent">All sources and AI assistance are strictly acknowledged.</td>
+            <td class="rubric-good">AI use is mentioned generally but lacks a detailed acknowledgement note.</td>
+            <td class="rubric-fair">Unclear use of external tools; references are incomplete or dated.</td>
+            <td class="rubric-poor">Evidence of academic dishonesty or over-reliance on AI.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Coverage Checklist</h2>
+      <span class="card-tag">Submission Readiness</span>
+    </div>
+    <p class="card-intro">Verify that all four core requirements from the task description are addressed in this hub.</p>
+    <div class="checklist-grid">
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Authentic Portfolio System</strong>
+          <p>Showcase Portfolio with 6 documented ICT entries and a 5-Step Learner Reflection Guide.</p>
+        </div>
+      </div>
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Multi-Method Gradebook</strong>
+          <p>Letter grades, percentage grades (Averaging and Cumulative methods), verbal descriptors for all 15 students.</p>
+        </div>
+      </div>
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Parent Communication Toolkit</strong>
+          <p>Mock Report Card download, Narrative Report generator, Conference Agenda checklist, and message templates.</p>
+        </div>
+      </div>
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Reflective Practice Dashboard</strong>
+          <p>Data-linked Teaching Adjustment Plan with 5 specific findings tied to student attainment data, plus a personal reflective log.</p>
+        </div>
+      </div>
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>AI Acknowledgement</strong>
+          <p>Full acknowledgement note included in the About section, as required by submission guidelines.</p>
+        </div>
+      </div>
+      <div class="checklist-item done">
+        <div class="checklist-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Assessment Rubric Reference</strong>
+          <p>Full EDU 222 rubric displayed with self-assessment scores and submission readiness checklist.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>Submission Details</h2></div>
+    <div class="submission-grid">
+      <div class="submission-item">
+        <span class="submission-label">Submission Mode</span>
+        <span class="submission-value">Google Classroom (digital components + video walkthrough)</span>
+      </div>
+      <div class="submission-item">
+        <span class="submission-label">Deadline</span>
+        <span class="submission-value">May 11, 2026</span>
+      </div>
+      <div class="submission-item">
+        <span class="submission-label">Subject</span>
+        <span class="submission-value">EDU 222 — Assessment and Evaluation</span>
+      </div>
+      <div class="submission-item">
+        <span class="submission-label">Task Title</span>
+        <span class="submission-value">Final Performance Innovative Task: Interactive Assessment &amp; Feedback Hub</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ─────────────────────────────────────
+     ABOUT
+───────────────────────────────────── -->
+<section id="about" class="section fade-in">
+
+  <div class="page-header">
     <h1>About This Project</h1>
   </div>
-  <div class="about-hero">
-    <div class="about-avatar">
-      <div class="avatar-initials-lg">S</div>
+
+  <div class="about-card">
+    <div class="about-photo-wrap">
+      <img src="axel.webp" alt="Axel jess C. Awitin" class="about-photo">
     </div>
     <div class="about-info">
-      <h2>Awitin</h2>
-      <p class="about-role">BTLEd ICT Student · EDU 222</p>
-      <p>This Interactive Assessment &amp; Feedback Hub was created as a Final Performance Innovative Task for EDU 222. It demonstrates authentic assessment methodologies, multi-method grading systems, parent communication strategies, and reflective teaching practice — all built with modern web technologies.</p>
+      <h2>Axel jess C. Awitin</h2>
+      <p class="about-role">BTLEd ICT Student &mdash; EDU 222</p>
+      <p>This Interactive Assessment &amp; Feedback Hub was created as a Final Performance Innovative Task for EDU 222. It demonstrates authentic assessment methodologies, multi-method grading systems, parent communication strategies, and data-driven reflective teaching practice — built entirely with standard web technologies.</p>
       <div class="about-tags">
         <span>Authentic Assessment</span>
         <span>ICT Integration</span>
@@ -666,126 +1258,218 @@
       </div>
     </div>
   </div>
+
   <div class="card">
     <div class="card-header"><h2>AI Acknowledgement</h2></div>
-    <p style="color:var(--text-muted);line-height:1.8">AI tools were used to support brainstorming, coding assistance, and structural guidance during the creation of this project. All content, student data, reflections, and pedagogical decisions were reviewed, customized, and finalized by the student. This project represents the student's own understanding of assessment principles and ICT teaching methodology.</p>
+    <p class="card-intro">AI tools were used to support brainstorming, coding assistance, and structural guidance during the creation of this project. All content, student data, reflections, and pedagogical decisions were reviewed, customized, and finalized by the student. This project represents the student's own understanding of assessment principles and ICT teaching methodology.</p>
   </div>
+
   <div class="card">
     <div class="card-header"><h2>Technologies Used</h2></div>
     <div class="tech-grid">
-      <div class="tech-item"><span>🌐</span><strong>HTML5</strong><p>Semantic structure</p></div>
-      <div class="tech-item"><span>🎨</span><strong>CSS3</strong><p>Animations &amp; layout</p></div>
-      <div class="tech-item"><span>⚡</span><strong>JavaScript</strong><p>Interactivity &amp; logic</p></div>
-      <div class="tech-item"><span>📊</span><strong>Chart.js</strong><p>Data visualization</p></div>
-      <div class="tech-item"><span>🔤</span><strong>Google Fonts</strong><p>Typography</p></div>
-      <div class="tech-item"><span>📱</span><strong>Responsive</strong><p>Mobile-ready design</p></div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <strong>HTML5</strong><p>Semantic structure</p>
+      </div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        <strong>CSS3</strong><p>Layout &amp; animation</p>
+      </div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <strong>JavaScript</strong><p>Interactivity &amp; logic</p>
+      </div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <strong>Chart.js</strong><p>Data visualization</p>
+      </div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        <strong>Google Fonts</strong><p>Typography</p>
+      </div>
+      <div class="tech-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <strong>Responsive</strong><p>Mobile-ready design</p>
+      </div>
     </div>
   </div>
+
 </section>
 
 </main>
 
-<!-- ───────────── PORTFOLIO MODALS ───────────── -->
-<div class="modal-overlay" id="modal1" onclick="closeModal('modal1')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal1')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#1e3c72,#4facfe)"><span>🖨️</span></div>
-    <h2>Printer Troubleshooting</h2>
-    <span class="port-cat">Hardware</span>
-    <p>Diagnosed a printer connection issue in the school computer laboratory. The printer was not being detected by Windows 11. Steps taken:</p>
-    <ol class="modal-steps">
-      <li>Verified physical cable connections (USB and power)</li>
-      <li>Opened Device Manager → identified missing driver</li>
-      <li>Downloaded official driver from manufacturer website</li>
-      <li>Cleared the print queue via Windows Services</li>
-      <li>Ran printer test page — successfully printed</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> Printer fully restored. Time: 25 minutes. Students impacted: 15.</div>
+<!-- ═══════════════════════════════════════
+     PORTFOLIO MODALS
+════════════════════════════════════════ -->
+
+<div class="modal-overlay" id="modal1" onclick="closeModal('modal1')" role="dialog" aria-modal="true" aria-label="Printer Troubleshooting">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal1')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #1e3c72, #2a5298)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">Hardware</span>
+      <h2>Printer Troubleshooting</h2>
+      <p>Diagnosed a printer connection issue in the school computer laboratory. The printer was not being detected by Windows 11. Steps taken:</p>
+      <ol class="modal-steps">
+        <li>Verified all physical cable connections (USB and power)</li>
+        <li>Opened Device Manager and identified the missing driver</li>
+        <li>Downloaded the official driver from the manufacturer website</li>
+        <li>Cleared the print queue via Windows Services</li>
+        <li>Ran a printer test page — successfully printed</li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> Printer fully restored. Resolution time: 25 minutes. Students impacted: 15.
+      </div>
+    </div>
   </div>
 </div>
-<div class="modal-overlay" id="modal2" onclick="closeModal('modal2')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal2')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#11998e,#38ef7d)"><span>📶</span></div>
-    <h2>Wi-Fi Connectivity Issue</h2>
-    <span class="port-cat">Networking</span>
-    <p>Resolved a classroom-wide Wi-Fi connectivity issue where multiple student devices failed to connect to the school network.</p>
-    <ol class="modal-steps">
-      <li>Pinged gateway to confirm router was reachable</li>
-      <li>Identified IP conflict via ipconfig /all</li>
-      <li>Released and renewed IP addresses (ipconfig /release /renew)</li>
-      <li>Updated wireless adapter drivers on affected machines</li>
-      <li>Reconfigured DHCP settings on the access point</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> Full connectivity restored for 15 devices. Time: 40 minutes.</div>
+
+<div class="modal-overlay" id="modal2" onclick="closeModal('modal2')" role="dialog" aria-modal="true" aria-label="Wi-Fi Connectivity Issue">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal2')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #0a5940, #11998e)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">Networking</span>
+      <h2>Wi-Fi Connectivity Issue</h2>
+      <p>Resolved a classroom-wide connectivity issue where multiple student devices failed to connect to the school network.</p>
+      <ol class="modal-steps">
+        <li>Pinged gateway to confirm router was reachable</li>
+        <li>Identified IP conflict via <code>ipconfig /all</code></li>
+        <li>Released and renewed IP addresses using <code>ipconfig /release /renew</code></li>
+        <li>Updated wireless adapter drivers on affected machines</li>
+        <li>Reconfigured DHCP settings on the access point</li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> Full connectivity restored for 15 devices. Resolution time: 40 minutes.
+      </div>
+    </div>
   </div>
 </div>
-<div class="modal-overlay" id="modal3" onclick="closeModal('modal3')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal3')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#8E2DE2,#4A00E0)"><span>💻</span></div>
-    <h2>Computer Boot Failure</h2>
-    <span class="port-cat">System Recovery</span>
-    <p>A school computer failed to boot after an incomplete Windows update. The system displayed a "Boot Configuration Data" error.</p>
-    <ol class="modal-steps">
-      <li>Booted from Windows Recovery USB</li>
-      <li>Ran Startup Repair from Advanced Options</li>
-      <li>Executed bootrec /fixmbr and bootrec /rebuildbcd</li>
-      <li>Used System Restore to roll back to a stable checkpoint</li>
-      <li>Verified all system files with sfc /scannow</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> System fully recovered. Data preserved. Time: 1 hour.</div>
+
+<div class="modal-overlay" id="modal3" onclick="closeModal('modal3')" role="dialog" aria-modal="true" aria-label="Computer Boot Failure">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal3')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #3b0764, #6d28d9)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">System Recovery</span>
+      <h2>Computer Boot Failure</h2>
+      <p>A school computer failed to boot after an incomplete Windows update, displaying a "Boot Configuration Data" error.</p>
+      <ol class="modal-steps">
+        <li>Booted from Windows Recovery USB drive</li>
+        <li>Ran Startup Repair from Advanced Options</li>
+        <li>Executed <code>bootrec /fixmbr</code> and <code>bootrec /rebuildbcd</code></li>
+        <li>Used System Restore to roll back to a stable checkpoint</li>
+        <li>Verified all system files with <code>sfc /scannow</code></li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> System fully recovered. Data preserved. Resolution time: 1 hour.
+      </div>
+    </div>
   </div>
 </div>
-<div class="modal-overlay" id="modal4" onclick="closeModal('modal4')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal4')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><span>📽️</span></div>
-    <h2>Projector Display Issue</h2>
-    <span class="port-cat">Display Hardware</span>
-    <p>The classroom projector failed to display the teacher's laptop screen during a demonstration lesson.</p>
-    <ol class="modal-steps">
-      <li>Tested multiple HDMI cables — found one with bent pins</li>
-      <li>Attempted alternate HDMI port on both projector and laptop</li>
-      <li>Switched to VGA adapter as backup solution</li>
-      <li>Adjusted display settings: Win+P → Duplicate/Extend</li>
-      <li>Documented issue and recommended cable replacement</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> Lesson resumed in 10 minutes using VGA adapter. Requested new HDMI cable procurement.</div>
+
+<div class="modal-overlay" id="modal4" onclick="closeModal('modal4')" role="dialog" aria-modal="true" aria-label="Projector Display Issue">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal4')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #92400e, #f59e0b)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">Display Hardware</span>
+      <h2>Projector Display Issue</h2>
+      <p>The classroom projector failed to display the teacher's laptop screen during a demonstration lesson.</p>
+      <ol class="modal-steps">
+        <li>Tested multiple HDMI cables — found one with bent pins</li>
+        <li>Attempted alternate HDMI port on both projector and laptop</li>
+        <li>Switched to VGA adapter as a backup solution</li>
+        <li>Adjusted display settings: Win+P → Duplicate/Extend</li>
+        <li>Documented the issue and recommended cable replacement</li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> Lesson resumed within 10 minutes. New HDMI cable procurement requested.
+      </div>
+    </div>
   </div>
 </div>
-<div class="modal-overlay" id="modal5" onclick="closeModal('modal5')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal5')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#f953c6,#b91d73)"><span>🔒</span></div>
-    <h2>Account & Password Recovery</h2>
-    <span class="port-cat">Security</span>
-    <p>Three students lost access to their school Google accounts. Assisted with secure account recovery and set up security measures.</p>
-    <ol class="modal-steps">
-      <li>Guided students through Google Account Recovery process</li>
-      <li>Verified identity using backup email/phone</li>
-      <li>Enabled 2-Factor Authentication (2FA) on all accounts</li>
-      <li>Introduced password manager (Bitwarden) for secure storage</li>
-      <li>Conducted mini-lesson on password hygiene for the class</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> All accounts recovered. Class completed security awareness session. Time: 35 minutes.</div>
+
+<div class="modal-overlay" id="modal5" onclick="closeModal('modal5')" role="dialog" aria-modal="true" aria-label="Account and Password Recovery">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal5')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #831843, #db2777)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">Security</span>
+      <h2>Account &amp; Password Recovery</h2>
+      <p>Three students lost access to their school Google accounts. Assisted with recovery and implemented security improvements.</p>
+      <ol class="modal-steps">
+        <li>Guided students through Google Account Recovery process</li>
+        <li>Verified identity using backup email and phone</li>
+        <li>Enabled 2-Factor Authentication (2FA) on all accounts</li>
+        <li>Introduced Bitwarden as a secure password manager</li>
+        <li>Delivered a class-wide password hygiene mini-lesson</li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> All accounts recovered. Full class completed security awareness session. Time: 35 minutes.
+      </div>
+    </div>
   </div>
 </div>
-<div class="modal-overlay" id="modal6" onclick="closeModal('modal6')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('modal6')">✕</button>
-    <div class="modal-thumb" style="background:linear-gradient(135deg,#0cebeb,#20e3b2,#29ffc6)"><span>📦</span></div>
-    <h2>Software Installation Lab</h2>
-    <span class="port-cat">Software</span>
-    <p>Led a structured software installation activity where the whole class installed and configured essential productivity software.</p>
-    <ol class="modal-steps">
-      <li>Prepared USB drives with installation files (offline installer)</li>
-      <li>Installed Microsoft Office 365 with valid school licenses</li>
-      <li>Configured Malwarebytes for real-time protection</li>
-      <li>Set up LibreOffice as an open-source alternative</li>
-      <li>Documented software inventory for the lab</li>
-    </ol>
-    <div class="modal-outcome"><strong>Outcome:</strong> 15 computers configured in under 2 hours. Full software inventory documented.</div>
+
+<div class="modal-overlay" id="modal6" onclick="closeModal('modal6')" role="dialog" aria-modal="true" aria-label="Software Installation Lab">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('modal6')" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-banner" style="background: linear-gradient(135deg, #065f46, #10b981)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+      </svg>
+    </div>
+    <div class="modal-body">
+      <span class="port-cat">Software</span>
+      <h2>Software Installation Lab</h2>
+      <p>Led a structured class-wide installation of essential productivity and security software across 15 laboratory computers.</p>
+      <ol class="modal-steps">
+        <li>Prepared USB drives with offline installation files</li>
+        <li>Installed Microsoft Office 365 with valid school licenses</li>
+        <li>Configured Malwarebytes for real-time protection</li>
+        <li>Set up LibreOffice as an open-source alternative</li>
+        <li>Documented a complete software inventory for the lab</li>
+      </ol>
+      <div class="modal-outcome">
+        <strong>Outcome:</strong> 15 computers fully configured in under 2 hours. Software inventory documented and filed.
+      </div>
+    </div>
   </div>
 </div>
 
