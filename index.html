@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Assessment &amp; Feedback Hub — Axel jess C. Awitin</title>
+  <title>Interactive Assessment &amp; Feedback Hub — Sharren</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,11 +20,12 @@
   <span></span>
   <span></span>
 </button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <!-- ═══════════════════════════════════════
      SIDEBAR
 ════════════════════════════════════════ -->
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar" role="navigation" aria-label="Main menu">
 
   <div class="sidebar-brand">
     <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -35,9 +36,9 @@
 
   <div class="sidebar-profile">
     <div class="profile-photo-wrap">
-      <img src="axel.webp" alt="Axel jess C. Awitin" class="profile-photo">
+      <img src="axel.webp" alt="Sharren" class="profile-photo">
     </div>
-    <p class="profile-name">Axel jess C. Awitin</p>
+    <p class="profile-name">Sharren</p>
     <p class="profile-role">BTLEd ICT Student</p>
     <p class="profile-meta">EDU 222 &middot; A.Y. 2025&ndash;2026</p>
   </div>
@@ -731,7 +732,7 @@
         <div class="letter-body">
           <p>Dear <span id="prevParent" class="preview-hl">Parent / Guardian</span>,</p>
           <p id="prevMsg" class="preview-hl">Your message will appear here as you type.</p>
-          <p>Sincerely,<br><strong>Teacher Axel jess C. Awitin</strong><br><em>BTLEd ICT Instructor</em></p>
+          <p>Sincerely,<br><strong>Teacher Sharren</strong><br><em>BTLEd ICT Instructor</em></p>
         </div>
       </div>
     </div>
@@ -783,7 +784,7 @@
           </div>
           <div id="narrativeBody" class="narrative-body-placeholder">Select a student and click Generate to preview the report.</div>
           <div class="narrative-foot">
-            Prepared by: <strong>Teacher Axel jess C. Awitin</strong> &middot; BTLEd ICT Instructor<br>
+            Prepared by: <strong>Teacher Sharren</strong> &middot; BTLEd ICT Instructor<br>
             Date: <span id="narrativeDate"></span>
           </div>
         </div>
@@ -1243,10 +1244,10 @@
 
   <div class="about-card">
     <div class="about-photo-wrap">
-      <img src="axel.webp" alt="Axel jess C. Awitin" class="about-photo">
+      <img src="axel.webp" alt="Sharren" class="about-photo">
     </div>
     <div class="about-info">
-      <h2>Axel jess C. Awitin</h2>
+      <h2>Sharren</h2>
       <p class="about-role">BTLEd ICT Student &mdash; EDU 222</p>
       <p>This Interactive Assessment &amp; Feedback Hub was created as a Final Performance Innovative Task for EDU 222. It demonstrates authentic assessment methodologies, multi-method grading systems, parent communication strategies, and data-driven reflective teaching practice — built entirely with standard web technologies.</p>
       <div class="about-tags">

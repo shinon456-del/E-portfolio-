@@ -123,6 +123,9 @@ function showSection(id, link) {
   // Close sidebar on mobile
   if (window.innerWidth <= 768) {
     document.getElementById('sidebar').classList.remove('open');
+    const ov = document.getElementById('sidebarOverlay');
+    if (ov) ov.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   // Lazy-initialise charts per section
@@ -131,7 +134,11 @@ function showSection(id, link) {
 }
 
 function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const isOpen  = sidebar.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('active', isOpen);
+  document.body.style.overflow = isOpen && window.innerWidth <= 768 ? 'hidden' : '';
 }
 
 
@@ -848,7 +855,13 @@ function closeModal(id) {
 // Close modal on Escape key
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
+    // Close modals
     document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    // Close sidebar on mobile
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 });
