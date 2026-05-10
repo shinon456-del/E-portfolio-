@@ -601,6 +601,7 @@
             <th>Rank</th>
             <th>Student</th>
             <th>% Score</th>
+            <th>Letter Grade</th>
             <th>Numerical Grade</th>
             <th>Descriptor</th>
             <th>Performance</th>
@@ -618,6 +619,8 @@
       <span class="card-tag">Component Breakdown</span>
     </div>
     <p class="card-intro">The <strong>Cumulative Method</strong> applies weighted components: Quizzes 25% · Activity/Performance 35% · Long Exam 25% · Participation 15%. Compared below against the <strong>Averaging Method</strong> (simple unweighted mean of all four components).</p>
+    <!-- Table 1: Component Scores -->
+    <h3 class="sub-table-title">Component Scores</h3>
     <div class="table-wrap">
       <table id="cumulTable">
         <thead>
@@ -627,9 +630,24 @@
             <th>Activity (35%)</th>
             <th>Long Exam (25%)</th>
             <th>Participation (15%)</th>
+          </tr>
+        </thead>
+        <tbody id="cumulComponentBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Table 2: Grade Comparison -->
+    <h3 class="sub-table-title" style="margin-top:24px">Grade Comparison: Cumulative vs. Averaging</h3>
+    <div class="table-wrap">
+      <table id="cumulCompareTable">
+        <thead>
+          <tr>
+            <th>Student</th>
             <th>Cumulative %</th>
+            <th>Letter</th>
             <th>Numerical</th>
             <th>Average %</th>
+            <th>Letter</th>
             <th>Numerical</th>
             <th>Difference</th>
           </tr>

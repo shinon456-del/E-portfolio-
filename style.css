@@ -2316,3 +2316,84 @@ textarea:focus-visible {
   outline: 2px solid var(--accent-light);
   outline-offset: 2px;
 }
+
+/* ─── Letter Grade Pill ──────────────────────────────────── */
+.letter-pill {
+  background: rgba(30, 58, 110, 0.08);
+  color: var(--accent-mid);
+  border: 1px solid rgba(30, 58, 110, 0.15);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 0.78rem;
+  min-width: 36px;
+  text-align: center;
+}
+
+body.dark .letter-pill {
+  background: rgba(74, 127, 203, 0.12);
+  color: #7ab3f5;
+  border-color: rgba(74, 127, 203, 0.20);
+}
+
+/* ─── Student Card Grade Row ─────────────────────────────── */
+.sc-grade-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.sc-letter {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ─── Cumulative Table Fix ───────────────────────────────── */
+.sub-table-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  padding-left: 2px;
+  border-left: 3px solid var(--accent-light);
+  padding-left: 10px;
+}
+
+.mono-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.diff-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* Each table scrolls independently on mobile */
+#cumulTable,
+#cumulCompareTable {
+  min-width: 400px;
+}
+
+#cumulCompareTable {
+  min-width: 520px;
+}
+
+/* Compact table cells for gradebook tables */
+#cumulTable td,
+#cumulTable th,
+#cumulCompareTable td,
+#cumulCompareTable th {
+  padding: 9px 11px;
+  white-space: nowrap;
+}

@@ -14,21 +14,21 @@
 ═══════════════════════════════════════ */
 
 const STUDENTS = [
-  { id: 1, name:'Ana', score:88, numerical:'1.75', descriptor:'Very Good', desc:'Strong problem-solving' },
-  { id: 2, name:'Ben', score:95, numerical:'1.25', descriptor:'Excellent', desc:'Excellent collaboration' },
-  { id: 3, name:'Cara', score:72, numerical:'3.25', descriptor:'Conditional', desc:'Needs improvement' },
-  { id: 4, name:'David', score:85, numerical:'2.00', descriptor:'Above Average', desc:'Consistent effort' },
-  { id: 5, name:'Ella', score:90, numerical:'1.75', descriptor:'Very Good', desc:'Creative solutions' },
-  { id: 6, name:'Felix', score:67, numerical:'3.75', descriptor:'Failed', desc:'Needs additional support' },
-  { id: 7, name:'Grace', score:80, numerical:'2.50', descriptor:'Average', desc:'Good participation' },
-  { id: 8, name:'Hugo', score:76, numerical:'2.75', descriptor:'Average', desc:'Needs more reflection' },
-  { id: 9, name:'Iris', score:92, numerical:'1.50', descriptor:'Very Good', desc:'Excellent technical skills' },
-  { id:10, name:'Jack', score:70, numerical:'3.50', descriptor:'Conditional', desc:'Needs troubleshooting practice' },
-  { id:11, name:'Kim', score:83, numerical:'2.25', descriptor:'Above Average', desc:'Good collaboration' },
-  { id:12, name:'Liam', score:78, numerical:'2.75', descriptor:'Average', desc:'Average performance' },
-  { id:13, name:'Mia', score:96, numerical:'1.25', descriptor:'Excellent', desc:'Outstanding initiative' },
-  { id:14, name:'Noah', score:74, numerical:'3.25', descriptor:'Conditional', desc:'Needs consistency' },
-  { id:15, name:'Zoe', score:89, numerical:'1.75', descriptor:'Very Good', desc:'Strong analytical thinking' },
+  { id: 1, name:'Ana', score:88, letter:'B+', numerical:'1.75', descriptor:'Very Good', desc:'Strong problem-solving' },
+  { id: 2, name:'Ben', score:95, letter:'A', numerical:'1.25', descriptor:'Excellent', desc:'Excellent collaboration' },
+  { id: 3, name:'Cara', score:72, letter:'D+', numerical:'3.25', descriptor:'Conditional', desc:'Needs improvement' },
+  { id: 4, name:'David', score:85, letter:'B', numerical:'2.00', descriptor:'Above Average', desc:'Consistent effort' },
+  { id: 5, name:'Ella', score:90, letter:'B+', numerical:'1.75', descriptor:'Very Good', desc:'Creative solutions' },
+  { id: 6, name:'Felix', score:67, letter:'D-', numerical:'3.75', descriptor:'Failed', desc:'Needs additional support' },
+  { id: 7, name:'Grace', score:80, letter:'C+', numerical:'2.50', descriptor:'Average', desc:'Good participation' },
+  { id: 8, name:'Hugo', score:76, letter:'C', numerical:'2.75', descriptor:'Average', desc:'Needs more reflection' },
+  { id: 9, name:'Iris', score:92, letter:'A-', numerical:'1.50', descriptor:'Very Good', desc:'Excellent technical skills' },
+  { id:10, name:'Jack', score:70, letter:'D', numerical:'3.50', descriptor:'Conditional', desc:'Needs troubleshooting practice' },
+  { id:11, name:'Kim', score:83, letter:'B-', numerical:'2.25', descriptor:'Above Average', desc:'Good collaboration' },
+  { id:12, name:'Liam', score:78, letter:'C', numerical:'2.75', descriptor:'Average', desc:'Average performance' },
+  { id:13, name:'Mia', score:96, letter:'A', numerical:'1.25', descriptor:'Excellent', desc:'Outstanding initiative' },
+  { id:14, name:'Noah', score:74, letter:'D+', numerical:'3.25', descriptor:'Conditional', desc:'Needs consistency' },
+  { id:15, name:'Zoe', score:89, letter:'B+', numerical:'1.75', descriptor:'Very Good', desc:'Strong analytical thinking' },
 ];
 
 // Component scores per student: [quiz, activity, longExam, participation]
@@ -54,6 +54,28 @@ const CHART_COLORS = {
 /* ═══════════════════════════════════════
    UTILITIES
 ═══════════════════════════════════════ */
+
+/**
+ * Convert % score to letter grade.
+ * @param {number} score
+ * @returns {string}
+ */
+function toLetter(score) {
+  if (score >= 97) return 'A+';
+  if (score >= 94) return 'A';
+  if (score >= 91) return 'A-';
+  if (score >= 88) return 'B+';
+  if (score >= 85) return 'B';
+  if (score >= 82) return 'B-';
+  if (score >= 79) return 'C+';
+  if (score >= 76) return 'C';
+  if (score >= 75) return 'C-';
+  if (score >= 72) return 'D+';
+  if (score >= 69) return 'D';
+  if (score >= 66) return 'D-';
+  if (score >= 65) return 'F+';
+  return 'F';
+}
 
 /**
  * Return color set based on USTP numerical grade.
@@ -405,6 +427,11 @@ function initGradebookCharts() {
   }
 
   renderGradeTable(STUDENTS);
+  // Clear both cumulative table bodies before render
+  const cb = document.getElementById('cumulBody');
+  const ccb = document.getElementById('cumulComponentBody');
+  if (cb)  cb.innerHTML  = '';
+  if (ccb) ccb.innerHTML = '';
   renderCumulativeTable();
 }
 
@@ -426,6 +453,7 @@ function renderGradeTable(data) {
         <td><span style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--text-muted)">#${rank}</span></td>
         <td><strong>${student.name}</strong></td>
         <td style="font-family:'IBM Plex Mono',monospace;font-weight:600">${student.score}%</td>
+        <td><span class="grade-pill letter-pill">${student.letter}</span></td>
         <td><span class="grade-pill ${colors.cssClass}">${student.numerical}</span></td>
         <td><span class="descriptor-badge descriptor-${colors.cssClass}">${student.descriptor}</span></td>
         <td>
@@ -459,47 +487,67 @@ function sortTable() {
 /**
  * Render the cumulative vs. averaging comparison table.
  */
+function pctToNum(pct) {
+  const v = parseFloat(pct);
+  if(v>=97)return'1.00';if(v>=94)return'1.25';if(v>=91)return'1.50';
+  if(v>=88)return'1.75';if(v>=85)return'2.00';if(v>=82)return'2.25';
+  if(v>=79)return'2.50';if(v>=76)return'2.75';if(v>=75)return'3.00';
+  if(v>=72)return'3.25';if(v>=69)return'3.50';if(v>=66)return'3.75';
+  if(v>=65)return'4.00';return'5.00';
+}
+
 function renderCumulativeTable() {
-  const tbody = document.getElementById('cumulBody');
-  if (!tbody) return;
+  const compareBody   = document.getElementById('cumulBody');
+  const componentBody = document.getElementById('cumulComponentBody');
 
-  tbody.innerHTML = STUDENTS.map(student => {
+  STUDENTS.forEach(student => {
     const components = COMPONENTS[student.name];
-    const cumul  = cumulativeGrade(components).toFixed(1);
-    const avg    = (components.reduce((a, b) => a + b, 0) / components.length).toFixed(1);
-    const diff   = (cumul - avg).toFixed(1);
+    const cumulRaw = cumulativeGrade(components);
+    const avgRaw   = components.reduce((a, b) => a + b, 0) / components.length;
 
-    const colors   = gradeColors(student.numerical);
+    // Fix: use proper number rounding before toFixed
+    const cumulPct = parseFloat(cumulRaw.toFixed(1));
+    const avgPct   = parseFloat(avgRaw.toFixed(1));
+    const diff     = parseFloat((cumulPct - avgPct).toFixed(1));
+
     const diffColor = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--rose)' : 'var(--text-muted)';
-    const diffStr   = diff > 0 ? '+' + diff : diff;
+    const diffStr   = diff > 0 ? '+' + diff.toFixed(1) : diff.toFixed(1);
 
-    // Convert pct to USTP numerical
-    function pctToNum(pct) {
-      const v = parseFloat(pct);
-      if(v>=97)return'1.00';if(v>=94)return'1.25';if(v>=91)return'1.50';
-      if(v>=88)return'1.75';if(v>=85)return'2.00';if(v>=82)return'2.25';
-      if(v>=79)return'2.50';if(v>=76)return'2.75';if(v>=75)return'3.00';
-      if(v>=72)return'3.25';if(v>=69)return'3.50';if(v>=66)return'3.75';
-      if(v>=65)return'4.00';return'5.00';
-    }
-    const cumulNum = pctToNum(cumul);
-    const avgNum   = pctToNum(avg);
+    const cumulNum    = pctToNum(cumulPct);
+    const avgNum      = pctToNum(avgPct);
+    const cumulLetter = toLetter(Math.round(cumulPct));
+    const avgLetter   = toLetter(Math.round(avgPct));
     const cumulColors = gradeColors(cumulNum);
     const avgColors   = gradeColors(avgNum);
-    return `
-      <tr>
-        <td><strong>${student.name}</strong></td>
-        <td style="font-family:'IBM Plex Mono',monospace">${components[0]}</td>
-        <td style="font-family:'IBM Plex Mono',monospace">${components[1]}</td>
-        <td style="font-family:'IBM Plex Mono',monospace">${components[2]}</td>
-        <td style="font-family:'IBM Plex Mono',monospace">${components[3]}</td>
-        <td><strong style="font-family:'IBM Plex Mono',monospace">${cumul}%</strong></td>
-        <td><span class="grade-pill ${cumulColors.cssClass}">${cumulNum}</span></td>
-        <td><strong style="font-family:'IBM Plex Mono',monospace">${avg}%</strong></td>
-        <td><span class="grade-pill ${avgColors.cssClass}">${avgNum}</span></td>
-        <td style="color:${diffColor};font-weight:700;font-family:'IBM Plex Mono',monospace;font-size:0.8rem">${diffStr}</td>
-      </tr>`;
-  }).join('');
+    const colors      = gradeColors(student.numerical);
+
+    // Table 1 — Component scores
+    if (componentBody) {
+      componentBody.innerHTML += `
+        <tr>
+          <td><strong>${student.name}</strong></td>
+          <td class="mono-cell">${components[0]}</td>
+          <td class="mono-cell">${components[1]}</td>
+          <td class="mono-cell">${components[2]}</td>
+          <td class="mono-cell">${components[3]}</td>
+        </tr>`;
+    }
+
+    // Table 2 — Grade comparison
+    if (compareBody) {
+      compareBody.innerHTML += `
+        <tr>
+          <td><strong>${student.name}</strong></td>
+          <td class="mono-cell">${cumulPct.toFixed(1)}%</td>
+          <td><span class="grade-pill letter-pill">${cumulLetter}</span></td>
+          <td><span class="grade-pill ${cumulColors.cssClass}">${cumulNum}</span></td>
+          <td class="mono-cell">${avgPct.toFixed(1)}%</td>
+          <td><span class="grade-pill letter-pill">${avgLetter}</span></td>
+          <td><span class="grade-pill ${avgColors.cssClass}">${avgNum}</span></td>
+          <td class="diff-cell" style="color:${diffColor}">${diffStr}</td>
+        </tr>`;
+    }
+  });
 }
 
 
@@ -536,7 +584,10 @@ function renderStudentCards(data) {
         <div class="sc-initial" style="background:${colors.bar}">${student.name[0]}</div>
         <p class="sc-name">${student.name}</p>
         <p class="sc-score" style="color:${colors.text}">${student.score}<span>%</span></p>
-        <span class="sc-grade ${colors.cssClass}">${student.numerical}</span>
+        <div class="sc-grade-row">
+          <span class="sc-grade ${colors.cssClass}">${student.numerical}</span>
+          <span class="sc-letter">${student.letter}</span>
+        </div>
         <span class="sc-descriptor-label" style="color:${colors.text}">${student.descriptor}</span>
         <p class="sc-desc">${student.desc}</p>
         <div class="sc-bar-track">
