@@ -765,7 +765,7 @@ function downloadReport() {
     });
     lines.push('');
     lines.push('Generated   : ' + new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' }));
-    lines.push('Prepared by : Teacher Sharren · BTLEd ICT Instructor');
+    lines.push('Prepared by : Teacher Axel jess C. Awitin· BTLEd ICT Instructor');
     triggerDownload(new Blob([lines.join('\n')], { type: 'text/plain' }), 'ReportCard.txt');
   }
 }
@@ -854,7 +854,7 @@ function downloadNarrative() {
     bodyText,
     '',
     '='.repeat(50),
-    'Prepared by: Teacher Sharren · BTLEd ICT Instructor',
+    'Prepared by: Teacher Axel jess C. Awitin · BTLEd ICT Instructor',
     'Date: ' + new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' }),
   ].join('\n');
 
