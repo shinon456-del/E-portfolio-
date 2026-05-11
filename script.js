@@ -51,6 +51,30 @@ const CHART_COLORS = {
 };
 
 
+
+/* ═══════════════════════════════════════
+   STUDENT EVIDENCE DATA
+   Each student has: quiz scores, assignment, performance task, remarks
+═══════════════════════════════════════ */
+
+const EVIDENCE = {
+  Ana:   { quizzes:[82,85,88], assignment:'Printer Driver Troubleshooting Report', assignScore:90, perfTask:'Hardware Diagnostic Demonstration', perfScore:87, remarks:'Ana shows strong analytical skills. Consistently submits outputs on time and demonstrates confidence in hardware tasks.' },
+  Ben:   { quizzes:[94,96,95], assignment:'Network Configuration Documentation', assignScore:97, perfTask:'Live Wi-Fi Troubleshooting Demo', perfScore:94, remarks:'Ben is an outstanding learner who takes initiative. Leads group activities effectively and helps struggling peers.' },
+  Cara:  { quizzes:[68,72,74], assignment:'Software Installation Checklist', assignScore:70, perfTask:'System Boot Recovery Exercise', perfScore:73, remarks:'Cara needs additional guided practice. Struggles with independent troubleshooting but shows improvement with peer support.' },
+  David: { quizzes:[83,86,84], assignment:'Peripheral Setup Documentation', assignScore:85, perfTask:'Projector Configuration Task', perfScore:86, remarks:'David is a consistent and reliable student. Produces well-organized outputs and participates actively in lab activities.' },
+  Ella:  { quizzes:[89,91,90], assignment:'Security Practices Report', assignScore:92, perfTask:'Account Recovery Live Demo', perfScore:89, remarks:'Ella demonstrates creative problem-solving. Her written reports are thorough and her practical skills are commendable.' },
+  Felix: { quizzes:[64,67,68], assignment:'Hardware Identification Activity', assignScore:65, perfTask:'Component Labeling Exercise', perfScore:68, remarks:'Felix requires immediate academic intervention. Participation is low and outputs are often incomplete. Remediation recommended.' },
+  Grace: { quizzes:[79,80,81], assignment:'Network Topology Diagram', assignScore:82, perfTask:'IP Configuration Lab', perfScore:78, remarks:'Grace participates well in class discussions. Lab outputs are satisfactory and she engages positively with groupmates.' },
+  Hugo:  { quizzes:[74,76,78], assignment:'System Maintenance Log', assignScore:77, perfTask:'Disk Cleanup and Defrag Demo', perfScore:75, remarks:'Hugo shows average performance. Needs to develop consistency in completing tasks. Reflective journaling recommended.' },
+  Iris:  { quizzes:[91,93,92], assignment:'Cybersecurity Awareness Poster', assignScore:94, perfTask:'Password Security Live Audit', perfScore:91, remarks:'Iris is technically excellent. Her outputs consistently exceed expectations and she mentors classmates effectively.' },
+  Jack:  { quizzes:[68,70,72], assignment:'Troubleshooting Flowchart', assignScore:69, perfTask:'Basic Hardware Assembly', perfScore:71, remarks:'Jack needs more practice in systematic troubleshooting. Attends class regularly but requires closer guidance during lab tasks.' },
+  Kim:   { quizzes:[81,84,83], assignment:'Software Licensing Report', assignScore:84, perfTask:'Antivirus Installation Lab', perfScore:82, remarks:'Kim collaborates well and submits quality outputs. Performance is consistent across both written and practical assessments.' },
+  Liam:  { quizzes:[76,78,80], assignment:'Computer Parts Identification Sheet', assignScore:79, perfTask:'BIOS Configuration Task', perfScore:77, remarks:'Liam performs at an average level. More effort in reviewing concepts after class would significantly improve scores.' },
+  Mia:   { quizzes:[95,97,96], assignment:'ICT Lab Inventory Report', assignScore:98, perfTask:'Full System Setup Demonstration', perfScore:96, remarks:'Mia is the top performer in the class. Her initiative, attention to detail, and leadership skills are outstanding.' },
+  Noah:  { quizzes:[72,74,75], assignment:'Driver Update Documentation', assignScore:73, perfTask:'Operating System Update Lab', perfScore:74, remarks:'Noah is capable but inconsistent. Needs to develop better study habits and follow through on task completion.' },
+  Zoe:   { quizzes:[88,89,90], assignment:'Network Security Report', assignScore:90, perfTask:'Firewall Configuration Demo', perfScore:88, remarks:'Zoe demonstrates strong analytical thinking and clear technical writing. A reliable and independent learner.' },
+};
+
 /* ═══════════════════════════════════════
    UTILITIES
 ═══════════════════════════════════════ */
@@ -579,7 +603,7 @@ function renderStudentCards(data) {
   grid.innerHTML = sorted.map((student, index) => {
     const colors = gradeColors(student.numerical);
     return `
-      <div class="student-card">
+      <div class="student-card" onclick="openStudentPortfolio('${student.name}')" tabindex="0" role="button" aria-label="View ${student.name}'s portfolio">
         <div class="student-card-accent" style="background:${colors.bar}"></div>
         <div class="sc-initial" style="background:${colors.bar}">${student.name[0]}</div>
         <p class="sc-name">${student.name}</p>
@@ -594,6 +618,7 @@ function renderStudentCards(data) {
           <div class="sc-bar-fill" style="width:${student.score}%;background:${colors.bar}"></div>
         </div>
         <p class="sc-rank">Rank ${index + 1} of ${sorted.length}</p>
+        <div class="sc-view-btn">View Portfolio</div>
       </div>`;
   }).join('');
 }
@@ -882,6 +907,144 @@ function renderReflectionLog() {
   ).join('');
 }
 
+
+
+/* ═══════════════════════════════════════
+   STUDENT PORTFOLIO MODAL
+═══════════════════════════════════════ */
+
+/**
+ * Open individual student portfolio modal.
+ * @param {string} name
+ */
+function openStudentPortfolio(name) {
+  const student  = STUDENTS.find(s => s.name === name);
+  const evidence = EVIDENCE[name];
+  const comp     = COMPONENTS[name];
+  const colors   = gradeColors(student.numerical);
+
+  if (!student || !evidence) return;
+
+  const avgQuiz = (evidence.quizzes.reduce((a,b)=>a+b,0)/evidence.quizzes.length).toFixed(1);
+
+  const modal = document.getElementById('studentPortfolioModal');
+  const body  = document.getElementById('studentPortfolioBody');
+
+  body.innerHTML = `
+    <!-- Header -->
+    <div class="sp-header" style="background:${colors.bar}">
+      <div class="sp-initial">${student.name[0]}</div>
+      <div class="sp-header-info">
+        <h2>${student.name}</h2>
+        <p>BTLEd ICT · EDU 222 · A.Y. 2025–2026</p>
+      </div>
+    </div>
+
+    <!-- Grade Summary -->
+    <div class="sp-grade-row">
+      <div class="sp-grade-item">
+        <div class="sp-grade-num" style="color:${colors.text}">${student.score}%</div>
+        <div class="sp-grade-lbl">Final Score</div>
+      </div>
+      <div class="sp-grade-item">
+        <div class="sp-grade-num"><span class="grade-pill ${colors.cssClass}">${student.letter}</span></div>
+        <div class="sp-grade-lbl">Letter Grade</div>
+      </div>
+      <div class="sp-grade-item">
+        <div class="sp-grade-num"><span class="grade-pill ${colors.cssClass}">${student.numerical}</span></div>
+        <div class="sp-grade-lbl">Numerical Grade</div>
+      </div>
+      <div class="sp-grade-item">
+        <div class="sp-grade-num" style="color:${colors.text}">${student.descriptor}</div>
+        <div class="sp-grade-lbl">Descriptor</div>
+      </div>
+    </div>
+
+    <!-- Evidence Section -->
+    <div class="sp-section-title">Portfolio Evidence</div>
+
+    <div class="sp-evidence-grid">
+
+      <!-- Quizzes -->
+      <div class="sp-evidence-card">
+        <div class="sp-ev-label">Quizzes (25%)</div>
+        <div class="sp-quiz-scores">
+          ${evidence.quizzes.map((q,i)=>`<div class="sp-quiz-item"><span>Quiz ${i+1}</span><strong>${q}%</strong></div>`).join('')}
+        </div>
+        <div class="sp-ev-avg">Average: <strong>${avgQuiz}%</strong></div>
+      </div>
+
+      <!-- Assignment -->
+      <div class="sp-evidence-card">
+        <div class="sp-ev-label">Assignment / Output (35%)</div>
+        <div class="sp-ev-title">${evidence.assignment}</div>
+        <div class="sp-ev-score-row">
+          <div class="sp-ev-score-bar">
+            <div style="width:${evidence.assignScore}%;background:${colors.bar};height:100%;border-radius:20px;transition:width 1s ease"></div>
+          </div>
+          <strong style="color:${colors.text}">${evidence.assignScore}%</strong>
+        </div>
+      </div>
+
+      <!-- Performance Task -->
+      <div class="sp-evidence-card">
+        <div class="sp-ev-label">Performance Task (25%)</div>
+        <div class="sp-ev-title">${evidence.perfTask}</div>
+        <div class="sp-ev-score-row">
+          <div class="sp-ev-score-bar">
+            <div style="width:${evidence.perfScore}%;background:${colors.bar};height:100%;border-radius:20px;transition:width 1s ease"></div>
+          </div>
+          <strong style="color:${colors.text}">${evidence.perfScore}%</strong>
+        </div>
+      </div>
+
+      <!-- Participation -->
+      <div class="sp-evidence-card">
+        <div class="sp-ev-label">Participation (15%)</div>
+        <div class="sp-ev-title">Classroom Engagement & Lab Attendance</div>
+        <div class="sp-ev-score-row">
+          <div class="sp-ev-score-bar">
+            <div style="width:${comp[3]}%;background:${colors.bar};height:100%;border-radius:20px;transition:width 1s ease"></div>
+          </div>
+          <strong style="color:${colors.text}">${comp[3]}%</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Teacher Remarks -->
+    <div class="sp-section-title">Teacher's Remarks</div>
+    <div class="sp-remarks">${evidence.remarks}</div>
+
+    <!-- Component Summary -->
+    <div class="sp-section-title">Component Score Summary</div>
+    <div class="sp-comp-grid">
+      <div class="sp-comp-item">
+        <div class="sp-comp-score">${comp[0]}</div>
+        <div class="sp-comp-lbl">Quiz</div>
+      </div>
+      <div class="sp-comp-item">
+        <div class="sp-comp-score">${comp[1]}</div>
+        <div class="sp-comp-lbl">Activity</div>
+      </div>
+      <div class="sp-comp-item">
+        <div class="sp-comp-score">${comp[2]}</div>
+        <div class="sp-comp-lbl">Long Exam</div>
+      </div>
+      <div class="sp-comp-item">
+        <div class="sp-comp-score">${comp[3]}</div>
+        <div class="sp-comp-lbl">Participation</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:16px;font-style:italic;text-align:center">
+      This portfolio entry is part of the Class Showcase Portfolio — BTLEd ICT, EDU 222.
+    </p>
+  `;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
 /* ═══════════════════════════════════════
    MODALS
